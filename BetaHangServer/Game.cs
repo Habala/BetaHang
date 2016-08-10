@@ -22,6 +22,7 @@ namespace BetaHangServer
         private string displayword = "somethingElse";
         private Thread myThread;
         private bool shutdownRequested = false;
+        Random rnd = new Random();
         public void RequestQuit()
         {
             shutdownRequested = true;
@@ -57,6 +58,8 @@ namespace BetaHangServer
             }
 
             int wordsPlayed = 0;
+            string[] words = File.ReadAllLines("OrdTillBetaHang.txt",Encoding.Unicode);
+            echoMessageToForm(null, new BHangMessage { Command = MessageCommand.none, Value = words[0] });
 
             while (wordsPlayed < 6 && !shutdownRequested)
             {

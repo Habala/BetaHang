@@ -10,8 +10,10 @@ namespace BetaHang
     {
         public MessageCommand Command { get; set; }
         public string Value { get; set; }
+        public string[] ExtraValues { get; set; }
 
     }
+
     public enum MessageCommand
     {
         changeName,
@@ -19,5 +21,6 @@ namespace BetaHang
         isReady,
         disconnect,
         timeLeft,
+        none,
     }
 }

@@ -38,7 +38,9 @@ namespace BetaHangClient
         {
             //textBox1.Text = message;
             textBox1.AppendText(message.Value);
-            label1.Text = ""+(int)message.Command;
+            1
+            player1Label.Text = ""+(int)message.Command;
+
             
         }
 
@@ -49,7 +51,7 @@ namespace BetaHangClient
 
         private void label1_Click(object sender, EventArgs e)
         {
-            label1.Text = "Don't click me";
+            player1Label.Text = "Don't click me";
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -65,6 +67,11 @@ namespace BetaHangClient
                 Value=""
             };
             myClient.Send(message);
+        }
+
+        private void ClientForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
