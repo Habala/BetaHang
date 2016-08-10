@@ -11,7 +11,7 @@ namespace BetaHangServer
         //private Server myServer;
         //public string userName;
         public TcpClient tcpClient;
-         public Action<ClientHandler, BHangMessage> messageHandler;
+        public Action<ClientHandler, BHangMessage> messageHandler;
         internal string userName;
         internal string guess;
         public bool IsReady { get; internal set; }
@@ -57,7 +57,7 @@ namespace BetaHangServer
 
                     //JsonMessage = JsonConvert.DeserializeObject(message);
                     //if (JsonMessage.method == "send")
-                        //myServer.Broadcast(this, (string)JsonMessage.message);
+                    //myServer.Broadcast(this, (string)JsonMessage.message);
                     messageHandler(this, message);
                     //else if (JsonMessage.method == "command")
                     //    myServer.Command(this, JsonMessage);

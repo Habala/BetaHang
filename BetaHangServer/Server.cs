@@ -17,7 +17,21 @@ namespace BetaHangServer
         List<ClientHandler> clients = new List<ClientHandler>();
         internal Action<ClientHandler, BHangMessage> messageHandler;
         private Game myGame;
+        //Hack: to force threads to shut down, might be better to have each client handle their threads
+        List<Thread> listenerThreads = new List<Thread>();
+        bool shutdown = false;
+        List<TcpListener> listeners = new List<TcpListener>();
 
+
+        public void RequestShutdown()
+        {
+            shutdown = true;
+            foreach (var item in listeners)
+            {
+                item.Stop();
+            }
+            listeners = null;
+        }
         public Server(Game myGame)
         {
             this.myGame = myGame;
@@ -27,12 +41,12 @@ namespace BetaHangServer
         {
             TcpListener listener = new TcpListener(IPAddress.Any, 5000);
             //Console.WriteLine("Server up and running, waiting for messages...");
-
+            listeners.Add(listener);
             try
             {
                 listener.Start();
 
-                while (true)
+                while (!shutdown)
                 {
                     TcpClient c = listener.AcceptTcpClient();
                     ClientHandler newClient = new ClientHandler(c, this.messageHandler);
@@ -40,22 +54,23 @@ namespace BetaHangServer
 
                     Thread clientThread = new Thread(newClient.Run);
                     clientThread.Start();
-
-                    lock (myGame.Clients)
-                    {
-                        if (!myGame.InGame && myGame.Clients.Count < myGame.MaxPlayers)
+                    listenerThreads.Add(clientThread);
+                    if (myGame != null)
+                        lock (myGame.Clients)
                         {
-                            newClient.userName = $"Player {myGame.Clients.Count + 1}";
-                            newClient.messageHandler -= this.messageHandler;
-                            newClient.messageHandler += myGame.messageHandler;
-                            clients.Remove(newClient);
-                            myGame.Clients.Add(newClient);
+                            if (!myGame.InGame && myGame.Clients.Count < myGame.MaxPlayers)
+                            {
+                                newClient.userName = $"Player {myGame.Clients.Count + 1}";
+                                newClient.messageHandler -= this.messageHandler;
+                                newClient.messageHandler += myGame.messageHandler;
+                                clients.Remove(newClient);
+                                myGame.Clients.Add(newClient);
+                            }
+                            else
+                            {
+                                //newClient.
+                            }
                         }
-                        else
-                        {
-                            //newClient.
-                        }
-                    }
                 }
             }
             catch (Exception ex)
@@ -69,10 +84,11 @@ namespace BetaHangServer
             }
         }
 
+        
         public void Broadcast(string message)
         {
             var Jsonmessage = "";
-            //var Jsonmessage = JsonConvert.SerializeObject(new { sender = client.userName, message = message });
+
             foreach (ClientHandler tmpClient in clients)
             {
 
@@ -83,14 +99,6 @@ namespace BetaHangServer
                 w.Write(message);
                 w.Flush();
 
-                //else if (clients.Count() == 1)
-                //{
-                //    NetworkStream n = tmpClient.tcpClient.GetStream();
-                //    BinaryWriter w = new BinaryWriter(n);
-                //    w.Write(JsonConvert.SerializeObject(
-                //        new { sender = "Server", message = $"Sorry you are all alone" }));
-                //    w.Flush();
-                //}
             }
         }
     }

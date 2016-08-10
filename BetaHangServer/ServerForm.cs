@@ -15,6 +15,7 @@ namespace BetaHangServer
     public partial class ServerForm : Form
     {
         private Server server;
+        private Thread serverThread;
         public Game myGame;
         public ServerForm()
         {
@@ -23,8 +24,8 @@ namespace BetaHangServer
             myGame.echoMessageToForm = messageHandler;
             server = new Server(myGame);
             server.messageHandler = messageHandler;
-            Thread myThread = new Thread(server.Run);
-            myThread.Start();
+            serverThread = new Thread(server.Run);
+            serverThread.Start();
 
         }
 
@@ -40,6 +41,12 @@ namespace BetaHangServer
         private void messageHandler(ClientHandler sender, BHangMessage message)
         {
             textBox1.Text = message.Value;
+        }
+
+        private void ServerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            myGame.RequestQuit();
+            server.RequestShutdown();
         }
     }
 }

@@ -44,7 +44,7 @@ namespace BetaHangClient
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            myClient.Close();
+            myClient.RequestShutdown();
         }
 
         private void label1_Click(object sender, EventArgs e)

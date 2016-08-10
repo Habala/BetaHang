@@ -20,10 +20,16 @@ namespace BetaHangServer
         public int MaxPlayers = 4;
         internal Action<ClientHandler, BHangMessage> echoMessageToForm;
         private string displayword = "somethingElse";
+        private Thread myThread;
+        private bool shutdownRequested = false;
+        public void RequestQuit()
+        {
+            shutdownRequested = true;
+        }
 
         public Game()
         {
-            Thread myThread = new Thread(Run);
+            myThread = new Thread(Run);
             myThread.Start();
         }
         private void Run()
@@ -32,7 +38,7 @@ namespace BetaHangServer
 
             //wait for players
             bool waitingForClients = true;
-            while (waitingForClients)
+            while (waitingForClients && !shutdownRequested)
             {
 
                 lock (Clients)
@@ -52,16 +58,16 @@ namespace BetaHangServer
 
             int wordsPlayed = 0;
 
-            while (wordsPlayed < 6)
+            while (wordsPlayed < 6 && !shutdownRequested)
             {
 
                 //entire game
-                while (secretword != displayword)
+                while (secretword != displayword && !shutdownRequested)
                 {
                     int waited = 0;
                     while (waited < 10)
                     {
-                        BroadCast(new BHangMessage {Command= MessageCommand.timeLeft, Value = $"{10-waited}" });
+                        BroadCast(new BHangMessage { Command = MessageCommand.timeLeft, Value = $"{10 - waited}" });
                         Thread.Sleep(1000);
                         //broadcast 10-waited s left
                         waited++;
@@ -77,7 +83,10 @@ namespace BetaHangServer
 
 
             //end game and display final points...
+            BroadCast(new BHangMessage { Command = MessageCommand.timeLeft, Value = "Exit requested..." });
         }
+
+        
 
         private void BroadCast(BHangMessage message)
         {
@@ -103,7 +112,7 @@ namespace BetaHangServer
             {
                 switch (msg.Command)
                 {
-                    
+
                     case MessageCommand.changeName:
                         sender.userName = msg.Value;
                         break;
@@ -123,7 +132,7 @@ namespace BetaHangServer
 
             }
             //do game stuff
-            var newMsg = new BHangMessage { Value=log};
+            var newMsg = new BHangMessage { Value = log };
             echoMessageToForm(null, newMsg);
         }
     }

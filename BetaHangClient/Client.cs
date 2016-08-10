@@ -18,6 +18,12 @@ namespace BetaHangClient
         private TcpClient client;
         internal Action<BHangMessage> onMessage;
         Thread listenerThread;
+        private bool shutdown = false;
+        public void RequestShutdown()
+        {
+            client.Close();
+            shutdown = true;
+        }
         public void Start()
         {
             #region Get local IP
@@ -48,10 +54,7 @@ namespace BetaHangClient
             //listenerThread.Join();
         }
 
-        internal void Close()
-        {
-            //Todo: Kill listenerThread here...
-        }
+        
 
         public void Listen()
         {
@@ -59,15 +62,13 @@ namespace BetaHangClient
 
             try
             {
-                while (true)
+                while (!shutdown)
                 {
                     NetworkStream n = client.GetStream();
                     jsonMessage = new BinaryReader(n).ReadString();
 
                     //dynamic m = JsonConvert.DeserializeObject(message);
                     //Console.WriteLine("Raw message: " + message);
-                    if (jsonMessage == "quit")
-                        break;
                     BHangMessage message = JsonConvert.DeserializeObject<BHangMessage>(jsonMessage);
                     onMessage?.Invoke(message);
                     //Console.WriteLine("Other: " + message);
@@ -75,7 +76,7 @@ namespace BetaHangClient
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
             }
             //graceful exit?
         }
@@ -103,7 +104,7 @@ namespace BetaHangClient
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
             }
         }
     }
