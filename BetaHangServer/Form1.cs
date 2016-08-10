@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,12 +17,23 @@ namespace BetaHangServer
         public Form1()
         {
             InitializeComponent();
-
+            Thread myThread = new Thread(server.Run);
+            server.messageHandler = messageHandler;
+            myThread.Start();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            server.Broadcast("Servern skickar testmeddelande");
+        }
+        private void messageHandler(string message)
+        {
+            textBox1.Text = message;
         }
     }
 }

@@ -15,10 +15,12 @@ namespace BetaHangServer
     {
 
         List<ClientHandler> clients = new List<ClientHandler>();
+        internal Action<string> messageHandler;
+
         public void Run()
         {
             TcpListener listener = new TcpListener(IPAddress.Any, 5000);
-            Console.WriteLine("Server up and running, waiting for messages...");
+            //Console.WriteLine("Server up and running, waiting for messages...");
 
             try
             {
@@ -36,7 +38,7 @@ namespace BetaHangServer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+               // Console.WriteLine(ex.Message);
             }
             finally
             {
@@ -51,23 +53,22 @@ namespace BetaHangServer
             //var Jsonmessage = JsonConvert.SerializeObject(new { sender = client.userName, message = message });
             foreach (ClientHandler tmpClient in clients)
             {
-                if (tmpClient != null)
-                {
-                    NetworkStream n = tmpClient.tcpClient.GetStream();
-                    BinaryWriter w = new BinaryWriter(n);
-                    //DataContractJsonSerializer
-                    //w.Write(client.userName + " says: " + message);
-                    w.Write(Jsonmessage);
-                    w.Flush();
-                }
-                else if (clients.Count() == 1)
-                {
-                    NetworkStream n = tmpClient.tcpClient.GetStream();
-                    BinaryWriter w = new BinaryWriter(n);
-                    w.Write(JsonConvert.SerializeObject(
-                        new { sender = "Server", message = $"Sorry you are all alone" }));
-                    w.Flush();
-                }
+
+                NetworkStream n = tmpClient.tcpClient.GetStream();
+                BinaryWriter w = new BinaryWriter(n);
+                //DataContractJsonSerializer
+                //w.Write(client.userName + " says: " + message);
+                w.Write(message);
+                w.Flush();
+
+                //else if (clients.Count() == 1)
+                //{
+                //    NetworkStream n = tmpClient.tcpClient.GetStream();
+                //    BinaryWriter w = new BinaryWriter(n);
+                //    w.Write(JsonConvert.SerializeObject(
+                //        new { sender = "Server", message = $"Sorry you are all alone" }));
+                //    w.Flush();
+                //}
             }
         }
     }
