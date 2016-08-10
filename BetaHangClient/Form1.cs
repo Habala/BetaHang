@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,9 +13,33 @@ namespace BetaHangClient
 {
     public partial class Form1 : Form
     {
+        private Client myClient;
+
         public Form1()
         {
             InitializeComponent();
+
+            myClient = new Client();
+            myClient.onMessage += MessageHandler;
+
+            //Thread clientThread = new Thread(myClient.Start);
+            //clientThread.Start();
+            myClient.Start();
+            //clientThread.Join();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            myClient.Send("Klienten skickar testmeddelande");
+        }
+        private void MessageHandler(string message)
+        {
+            textBox1.Text = message;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            myClient.Close();
         }
     }
 }
