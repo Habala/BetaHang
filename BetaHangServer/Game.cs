@@ -15,11 +15,11 @@ namespace BetaHangServer
     {
         private object lockObject = new object();
         public List<ClientHandler> Clients = new List<ClientHandler>();
-        string secretword;
+        string secretword = "testa";
         public bool InGame = false;
         public int MaxPlayers = 4;
         internal Action<ClientHandler, BHangMessage> echoMessageToForm;
-        private string displayword;
+        private string displayword = "somethingElse";
 
         public Game()
         {
@@ -98,11 +98,12 @@ namespace BetaHangServer
 
         internal void messageHandler(ClientHandler sender, BHangMessage msg)
         {
+            string log = "";
             lock (lockObject)
             {
                 switch (msg.Command)
                 {
-
+                    
                     case MessageCommand.changeName:
                         sender.userName = msg.Value;
                         break;
@@ -111,6 +112,7 @@ namespace BetaHangServer
                         break;
                     case MessageCommand.isReady:
                         sender.IsReady = true;
+                        log = $"set user {sender.userName} ready";
                         break;
                     case MessageCommand.disconnect:
                         //todo: user disconnectar switch case
@@ -121,8 +123,8 @@ namespace BetaHangServer
 
             }
             //do game stuff
-            msg.Value += "Game touched this message";
-            echoMessageToForm(sender, msg);
+            var newMsg = new BHangMessage { Value=log};
+            echoMessageToForm(null, newMsg);
         }
     }
 }
