@@ -17,8 +17,9 @@ namespace BetaHangServer
         public Form1()
         {
             InitializeComponent();
-            Thread myThread = new Thread(server.Run);
+            server = new Server();
             server.messageHandler = messageHandler;
+            Thread myThread = new Thread(server.Run);
             myThread.Start();
         }
 

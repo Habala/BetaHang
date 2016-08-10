@@ -34,7 +34,8 @@ namespace BetaHangClient
         }
         private void MessageHandler(string message)
         {
-            textBox1.Text = message;
+            //textBox1.Text = message;
+            textBox1.AppendText(message);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

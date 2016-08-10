@@ -29,7 +29,7 @@ namespace BetaHangServer
                 while (true)
                 {
                     TcpClient c = listener.AcceptTcpClient();
-                    ClientHandler newClient = new ClientHandler(c, this.Broadcast);
+                    ClientHandler newClient = new ClientHandler(c, this.messageHandler);
                     clients.Add(newClient);
 
                     Thread clientThread = new Thread(newClient.Run);
