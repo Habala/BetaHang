@@ -36,7 +36,7 @@ namespace BetaHangServer
                         waitingForClients = false;
                         InGame = true;
                     }
-                }
+                } 
                 Thread.Sleep(50);
                 //Wait for cilents to be ready.
                 if (Clients.Count > MaxPlayers)

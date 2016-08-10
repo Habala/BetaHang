@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,6 +37,12 @@ namespace BetaHangClient
         {
             //textBox1.Text = message;
             textBox1.AppendText(message);
+            label1.Text = message;
+            dynamic d = JsonConvert.DeserializeObject(message);
+            if (d.command == "Change name")
+            {
+                //Change name
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -44,6 +51,11 @@ namespace BetaHangClient
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+            label1.Text = "Don't click me";
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

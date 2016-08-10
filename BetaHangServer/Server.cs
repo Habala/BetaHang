@@ -44,6 +44,7 @@ namespace BetaHangServer
                     {
                         if (!myGame.InGame && myGame.Clients.Count < myGame.MaxPlayers)
                         {
+                            newClient.userName = $"Player {myGame.Clients.Count + 1}";
                             newClient.messageHandler -= this.messageHandler;
                             newClient.messageHandler += myGame.messageHandler;
                             clients.Remove(newClient);

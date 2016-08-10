@@ -10,6 +10,7 @@ namespace BetaHangServer
         //public string userName;
         public TcpClient tcpClient;
          public Action<string> messageHandler;
+        internal string userName;
 
         public ClientHandler(TcpClient c, Action<string> broadcast)
         {
