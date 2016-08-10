@@ -13,9 +13,14 @@ namespace BetaHangServer
 {
     class Server
     {
-
         List<ClientHandler> clients = new List<ClientHandler>();
         internal Action<string> messageHandler;
+        private Game myGame;
+
+        public Server(Game myGame)
+        {
+            this.myGame = myGame;
+        }
 
         public void Run()
         {
@@ -34,11 +39,26 @@ namespace BetaHangServer
 
                     Thread clientThread = new Thread(newClient.Run);
                     clientThread.Start();
+
+                    lock (myGame.Clients)
+                    {
+                        if (!myGame.InGame && myGame.Clients.Count < myGame.MaxPlayers)
+                        {
+                            newClient.messageHandler -= this.messageHandler;
+                            newClient.messageHandler += myGame.messageHandler;
+                            clients.Remove(newClient);
+                            myGame.Clients.Add(newClient);
+                        }
+                        else
+                        {
+                            //newClient.
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-               // Console.WriteLine(ex.Message);
+                // Console.WriteLine(ex.Message);
             }
             finally
             {

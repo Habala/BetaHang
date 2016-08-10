@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace BetaHangClient
 {
-    public partial class Form1 : Form
+    public partial class ClientForm : Form
     {
         private Client myClient;
 
-        public Form1()
+        public ClientForm()
         {
             InitializeComponent();
 
@@ -41,6 +41,11 @@ namespace BetaHangClient
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             myClient.Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

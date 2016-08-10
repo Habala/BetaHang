@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace BetaHangServer
 {
-    class Game
+    public class Game
     {
-        List<ClientHandler> Clients;
+        public List<ClientHandler> Clients = new List<ClientHandler>();
         string secretword;
         public bool InGame = false;
         public int MaxPlayers = 4;
+        internal Action<string> echoMessagetoForm;
 
         public Game()
         {
@@ -54,6 +55,10 @@ namespace BetaHangServer
 
         }
 
-
+        internal void messageHandler(string obj)
+        {
+            //do game stuff
+            echoMessagetoForm("game handler says: " + obj);
+        }
     }
 }

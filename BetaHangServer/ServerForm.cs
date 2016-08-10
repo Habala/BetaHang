@@ -11,16 +11,20 @@ using System.Windows.Forms;
 
 namespace BetaHangServer
 {
-    public partial class Form1 : Form
+    public partial class ServerForm : Form
     {
         private Server server;
-        public Form1()
+        public Game myGame;
+        public ServerForm()
         {
             InitializeComponent();
-            server = new Server();
+            myGame = new Game();
+            myGame.echoMessagetoForm = messageHandler;
+            server = new Server(myGame);
             server.messageHandler = messageHandler;
             Thread myThread = new Thread(server.Run);
             myThread.Start();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
