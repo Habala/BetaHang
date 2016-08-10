@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BetaHang;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,18 +32,14 @@ namespace BetaHangClient
 
         private void button1_Click(object sender, EventArgs e)
         {
-            myClient.Send("Klienten skickar testmeddelande");
+            myClient.Send(new BHangMessage { Command = BetaHang.MessageCommand.guess, Value = "Button test" });
         }
-        private void MessageHandler(string message)
+        private void MessageHandler(BHangMessage message)
         {
             //textBox1.Text = message;
-            textBox1.AppendText(message);
-            label1.Text = message;
-            dynamic d = JsonConvert.DeserializeObject(message);
-            if (d.command == "Change name")
-            {
-                //Change name
-            }
+            textBox1.AppendText(message.Value);
+            label1.Text = ""+(int)message.Command;
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

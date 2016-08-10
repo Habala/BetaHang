@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BetaHang;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,7 @@ namespace BetaHangServer
         {
             InitializeComponent();
             myGame = new Game();
-            myGame.echoMessagetoForm = messageHandler;
+            myGame.echoMessageToForm = messageHandler;
             server = new Server(myGame);
             server.messageHandler = messageHandler;
             Thread myThread = new Thread(server.Run);
@@ -36,9 +37,9 @@ namespace BetaHangServer
         {
             server.Broadcast("Servern skickar testmeddelande");
         }
-        private void messageHandler(string message)
+        private void messageHandler(BHangMessage message)
         {
-            textBox1.Text = message;
+            textBox1.Text = message.Value;
         }
     }
 }

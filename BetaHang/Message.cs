@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace BetaHang
 {
-    class Message
+    public class BHangMessage
     {
         public MessageCommand Command { get; set; }
         public string Value { get; set; }
+
     }
     public enum MessageCommand
     {
         changeName,
-        guess
+        guess,
     }
 }

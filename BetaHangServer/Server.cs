@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BetaHang;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,7 @@ namespace BetaHangServer
     class Server
     {
         List<ClientHandler> clients = new List<ClientHandler>();
-        internal Action<string> messageHandler;
+        internal Action<BHangMessage> messageHandler;
         private Game myGame;
 
         public Server(Game myGame)

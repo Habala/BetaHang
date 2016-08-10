@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BetaHang;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace BetaHangClient
     public class Client
     {
         private TcpClient client;
-        internal Action<string> onMessage;
+        internal Action<BHangMessage> onMessage;
         Thread listenerThread;
         public void Start()
         {
@@ -53,19 +55,20 @@ namespace BetaHangClient
 
         public void Listen()
         {
-            string message = "";
+            string jsonMessage = "";
 
             try
             {
                 while (true)
                 {
                     NetworkStream n = client.GetStream();
-                    message = new BinaryReader(n).ReadString();
+                    jsonMessage = new BinaryReader(n).ReadString();
 
                     //dynamic m = JsonConvert.DeserializeObject(message);
                     //Console.WriteLine("Raw message: " + message);
-                    if (message == "quit")
+                    if (jsonMessage == "quit")
                         break;
+                    BHangMessage message = JsonConvert.DeserializeObject<BHangMessage>(jsonMessage);
                     onMessage?.Invoke(message);
                     //Console.WriteLine("Other: " + message);
                 }
@@ -77,7 +80,7 @@ namespace BetaHangClient
             //graceful exit?
         }
 
-        public void Send(string message)
+        public void Send(BHangMessage message)
         {
             //string message = "";
 
@@ -90,7 +93,9 @@ namespace BetaHangClient
                 //message = Console.ReadLine();
                 BinaryWriter w = new BinaryWriter(n);
                 //string JsonMessage = JsonConvert.SerializeObject(new { method = "send", message = message });
-                w.Write(message);
+                string tmpJson = JsonConvert.SerializeObject(message);
+                   
+                w.Write(tmpJson);
                 w.Flush();
                 //}
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BetaHang;
+using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net.Sockets;
 
@@ -9,10 +11,10 @@ namespace BetaHangServer
         //private Server myServer;
         //public string userName;
         public TcpClient tcpClient;
-         public Action<string> messageHandler;
+         public Action<BHangMessage> messageHandler;
         internal string userName;
 
-        public ClientHandler(TcpClient c, Action<string> broadcast)
+        public ClientHandler(TcpClient c, Action<BHangMessage> broadcast)
         {
             this.tcpClient = c;
             messageHandler = broadcast;
@@ -35,7 +37,7 @@ namespace BetaHangServer
         {
             try
             {
-                string message = "";
+                BHangMessage message = null;
                 //NetworkStream n;
                 //dynamic JsonMessage;
                 //Get username
@@ -46,10 +48,12 @@ namespace BetaHangServer
                 //this.userName = JsonMessage.message;
                 //Console.WriteLine("User selected username: " + this.userName);
 
-                while (!message.Equals("quit"))
+                while (true)
                 {
                     NetworkStream n = tcpClient.GetStream();
-                    message = new BinaryReader(n).ReadString();
+                    string JsonTmpMsg = new BinaryReader(n).ReadString();
+                    message = JsonConvert.DeserializeObject<BHangMessage>(JsonTmpMsg);
+
                     //JsonMessage = JsonConvert.DeserializeObject(message);
                     //if (JsonMessage.method == "send")
                         //myServer.Broadcast(this, (string)JsonMessage.message);

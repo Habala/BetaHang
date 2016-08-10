@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BetaHang;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace BetaHangServer
         string secretword;
         public bool InGame = false;
         public int MaxPlayers = 4;
-        internal Action<string> echoMessagetoForm;
+        internal Action<BHangMessage> echoMessageToForm;
 
         public Game()
         {
@@ -55,10 +56,11 @@ namespace BetaHangServer
 
         }
 
-        internal void messageHandler(string obj)
+        internal void messageHandler(BHangMessage msg)
         {
             //do game stuff
-            echoMessagetoForm("game handler says: " + obj);
+            msg.Value += "Game touched this message";
+            echoMessageToForm(msg);
         }
     }
 }
