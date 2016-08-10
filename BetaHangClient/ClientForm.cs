@@ -56,5 +56,15 @@ namespace BetaHangClient
         {
 
         }
+
+        private void readyButton_Click(object sender, EventArgs e)
+        {
+            var message = new BHangMessage
+            {
+                Command = MessageCommand.isReady,
+                Value=""
+            };
+            myClient.Send(message);
+        }
     }
 }

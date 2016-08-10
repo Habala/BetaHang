@@ -18,6 +18,6 @@ namespace BetaHang
         guess,
         isReady,
         disconnect,
-
+        timeLeft,
     }
 }

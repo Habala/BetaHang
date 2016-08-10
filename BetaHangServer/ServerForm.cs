@@ -37,7 +37,7 @@ namespace BetaHangServer
         {
             server.Broadcast("Servern skickar testmeddelande");
         }
-        private void messageHandler(BHangMessage message)
+        private void messageHandler(ClientHandler sender, BHangMessage message)
         {
             textBox1.Text = message.Value;
         }

@@ -15,7 +15,7 @@ namespace BetaHangServer
     class Server
     {
         List<ClientHandler> clients = new List<ClientHandler>();
-        internal Action<BHangMessage> messageHandler;
+        internal Action<ClientHandler, BHangMessage> messageHandler;
         private Game myGame;
 
         public Server(Game myGame)
