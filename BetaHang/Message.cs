@@ -16,5 +16,8 @@ namespace BetaHang
     {
         changeName,
         guess,
+        isReady,
+        disconnect,
+
     }
 }

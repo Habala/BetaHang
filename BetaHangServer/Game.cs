@@ -10,6 +10,7 @@ namespace BetaHangServer
 {
     public class Game
     {
+        private object lockObject = new object();
         public List<ClientHandler> Clients = new List<ClientHandler>();
         string secretword;
         public bool InGame = false;
@@ -58,6 +59,10 @@ namespace BetaHangServer
 
         internal void messageHandler(BHangMessage msg)
         {
+            lock (lockObject)
+            {
+
+            }
             //do game stuff
             msg.Value += "Game touched this message";
             echoMessageToForm(msg);
