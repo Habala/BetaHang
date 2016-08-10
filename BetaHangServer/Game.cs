@@ -41,7 +41,6 @@ namespace BetaHangServer
             bool waitingForClients = true;
             while (waitingForClients && !shutdownRequested)
             {
-
                 lock (Clients)
                 {
                     if (Clients.Count >= 2 && Clients.All(c => c.IsReady))
@@ -52,13 +51,10 @@ namespace BetaHangServer
                 }
                 Thread.Sleep(50);
                 //Wait for cilents to be ready.
-
-                if (Clients.Count > MaxPlayers)
-                    throw new Exception("Server added too many players, stupid server!");
             }
 
             int wordsPlayed = 0;
-            string[] words = File.ReadAllLines("OrdTillBetaHang.txt",Encoding.Unicode);
+            string[] words = File.ReadAllLines("OrdTillBetaHang.txt", Encoding.Unicode);
             echoMessageToForm(null, new BHangMessage { Command = MessageCommand.none, Value = words[0] });
 
             while (wordsPlayed < 6 && !shutdownRequested)
@@ -89,7 +85,26 @@ namespace BetaHangServer
             BroadCast(new BHangMessage { Command = MessageCommand.timeLeft, Value = "Exit requested..." });
         }
 
-        
+        internal bool AddPlayer(ClientHandler newClient)
+        {
+            if (InGame)
+                return false;
+
+            bool userAdded = false;
+            lock (Clients)
+            {
+                if (!InGame && Clients.Count < MaxPlayers)
+                {
+                    newClient.userName = $"Player {Clients.Count + 1}";
+                    newClient.onMessage += messageHandler;
+                    //todo: change to event newClient.onMessage2 += messageHandler;
+                    Clients.Add(newClient);
+                    userAdded = true;
+                }
+            }
+            return userAdded;
+            
+        }
 
         private void BroadCast(BHangMessage message)
         {
@@ -132,7 +147,6 @@ namespace BetaHangServer
                     default:
                         break;
                 }
-
             }
             //do game stuff
             var newMsg = new BHangMessage { Value = log };

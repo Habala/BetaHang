@@ -38,7 +38,7 @@ namespace BetaHangClient
         {
             //textBox1.Text = message;
             textBox1.AppendText(message.Value);
-            1
+            
             player1Label.Text = ""+(int)message.Command;
 
             

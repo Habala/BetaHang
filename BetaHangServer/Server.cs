@@ -49,28 +49,25 @@ namespace BetaHangServer
                 while (!shutdown)
                 {
                     TcpClient c = listener.AcceptTcpClient();
-                    ClientHandler newClient = new ClientHandler(c, this.messageHandler);
-                    clients.Add(newClient);
+                    ClientHandler newClient = new ClientHandler(c /*, this.messageHandler*/); 
+                    //clients.Add(newClient);
 
                     Thread clientThread = new Thread(newClient.Run);
                     clientThread.Start();
+                    //todo: next line might not be needed, part of attempts to get good shutdowns
                     listenerThreads.Add(clientThread);
+
+                    bool added = false;
                     if (myGame != null)
-                        lock (myGame.Clients)
-                        {
-                            if (!myGame.InGame && myGame.Clients.Count < myGame.MaxPlayers)
-                            {
-                                newClient.userName = $"Player {myGame.Clients.Count + 1}";
-                                newClient.messageHandler -= this.messageHandler;
-                                newClient.messageHandler += myGame.messageHandler;
-                                clients.Remove(newClient);
-                                myGame.Clients.Add(newClient);
-                            }
-                            else
-                            {
-                                //newClient.
-                            }
-                        }
+                    {
+                        added = myGame.AddPlayer(newClient);
+                        clients.Remove(newClient);
+                    }
+                    if (!added)
+                    {
+                        //todo: send fail message to client, then drop connection
+                    }
+                        
                 }
             }
             catch (Exception ex)
