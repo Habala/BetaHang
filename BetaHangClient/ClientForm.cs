@@ -69,7 +69,7 @@ namespace BetaHangClient
                         case 2:
                             player3Label.Text = state.Players[2].Name;
                             lblPlayerThreeGuess.Text = state.Players[2].Guess;
-                            lblPlayerThreeGuess.Text = state.Players[2].Score.ToString();
+                            lblPlayerThreePoints.Text = state.Players[2].Score.ToString();
                             break;
                         case 3:
                             player4Label.Text = state.Players[3].Name;

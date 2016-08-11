@@ -37,7 +37,7 @@ namespace BetaHangClient
             {
                 Guess = "";
                 this.Id = Id;
-                Name = "Player x";
+                Name = $"Player {Id}";
                 Score = 0;
             }
         }
