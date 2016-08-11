@@ -51,11 +51,27 @@ namespace BetaHangClient
 
         private void GameStateUpdate(Gamestate state)
         {
-
-            //player1Label.Text = state.Players[0].Name;
-            //player2Label.Text = state.Players[1].Name;
-            //player3Label.Text = state.Players[2].Name;
-            //player4Label.Text = state.Players[3].Name;
+            if (state.Players != null)
+                for (int i = 0; i < state.Players.Count && i < 4; i++)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            player1Label.Text = state.Players[0].Name;
+                            break;
+                        case 1:
+                            player2Label.Text = state.Players[1].Name;
+                            break;
+                        case 2:
+                            player3Label.Text = state.Players[2].Name;
+                            break;
+                        case 3:
+                            player4Label.Text = state.Players[3].Name;
+                            break;
+                        default:
+                            break;
+                    }
+                }
 
             textBox1.AppendText(state.timeLeft.ToString());
 
