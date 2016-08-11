@@ -66,13 +66,13 @@ namespace BetaHangServer
                 //entire game
                 while (secretword != new string(displayword) && !shutdownRequested)
                 {
-                    int waited = 0;
-                    while (waited < 6)
+                    int waited = 6;
+                    while (waited > 0)
                     {
-                        BroadCast(new BHangMessage { Command = MessageCommand.timeLeft, Value = $"{10 - waited}" });
+                        BroadCast(new BHangMessage { Command = MessageCommand.timeLeft, Value = $"{waited}" });
                         Thread.Sleep(1000);
                         //broadcast 10-waited s left
-                        waited++;
+                        waited--;
                     }
                     var oldDisplayWord = displayword;
                     foreach (var client in Clients)
