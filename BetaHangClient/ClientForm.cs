@@ -65,17 +65,20 @@ namespace BetaHangClient
                         case 1:
                             player2Label.Text = state.Players[1].Name;
                             lblPlayerTwoGuess.Text = state.Players[1].Guess;
-                            lblPlayerTwoPoints.Text = state.Players[1].Score.ToString();
+                            lblPlayerTwoPoints.Text = state.Players[1].Score.ToString() + " "
+                     + state.Players[1].ScoreChange.ToString();
                             break;
                         case 2:
                             player3Label.Text = state.Players[2].Name;
                             lblPlayerThreeGuess.Text = state.Players[2].Guess;
-                            lblPlayerThreePoints.Text = state.Players[2].Score.ToString();
+                            lblPlayerThreePoints.Text = state.Players[2].Score.ToString() + " "
+                     + state.Players[2].ScoreChange.ToString();
                             break;
                         case 3:
                             player4Label.Text = state.Players[3].Name;
                             LblPlayerFourGuess.Text = state.Players[3].Guess;
-                            lblPlayerFourPoints.Text = state.Players[3].Score.ToString();
+                            lblPlayerFourPoints.Text = state.Players[3].Score.ToString() + " "
+                     + state.Players[3].ScoreChange.ToString();
 
                             break;
                         default:
