@@ -36,7 +36,8 @@ namespace BetaHangClient
         private void debugDisplay(BHangMessage obj)
         {
             string msges = obj.Command + " ";
-            msges += obj.Value + " ";
+            if (obj.Value != null)
+                msges += obj.Value + " ";
             if (obj.ExtraValues != null)
                 foreach (var item in obj.ExtraValues)
                 {
