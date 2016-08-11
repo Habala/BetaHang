@@ -67,7 +67,7 @@ namespace BetaHangServer
                 while (secretword != new string(displayword) && !shutdownRequested)
                 {
                     int waited = 0;
-                    while (waited < 10)
+                    while (waited < 6)
                     {
                         BroadCast(new BHangMessage { Command = MessageCommand.timeLeft, Value = $"{10 - waited}" });
                         Thread.Sleep(1000);
@@ -103,11 +103,6 @@ namespace BetaHangServer
                     }
                     var msg = new BHangMessage { Command = MessageCommand.displayWord, Value = new string(displayword) };
                     BroadCast(msg);
-                    //en rad
-
-                    //handle guesses
-
-                    //repeat
                 }
                 BroadCast(new BHangMessage { Command = MessageCommand.displayWord, Value = secretword });
                 Thread.Sleep(1500);
