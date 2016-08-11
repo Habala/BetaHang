@@ -58,7 +58,7 @@ namespace BetaHangServer
 
             while (wordsPlayed < 6 && !shutdownRequested)
             {
-                secretword = words[rnd.Next(words.Length)];
+                secretword = words[rnd.Next(words.Length)].ToUpper();
                 displayword = (secretword.ToArray()
                   .Select(c => '*').ToArray());
                 BroadCast(new BHangMessage { Command = MessageCommand.displayWord, Value = new string(displayword) });
@@ -77,7 +77,7 @@ namespace BetaHangServer
                     var oldDisplayWord = displayword;
                     foreach (var client in Clients)
                     {
-                        var guess = client.guess;
+                        var guess = client.guess?.ToUpper();
                         int correct = 0;
                         if (guess != null && guess.Length == 1)
                         {
@@ -93,10 +93,16 @@ namespace BetaHangServer
                         else if (guess == secretword)
                         {
                             correct = oldDisplayWord.Where(c => c == '*').Count();
+                            displayword = secretword.ToArray();
                         }
+
                         client.score += correct;
-                        BroadCast(new BHangMessage { Command = MessageCommand.score, Value = client.userName, ExtraValues = new string[] { "client.score" } });
+                        BroadCast(new BHangMessage { Command = MessageCommand.score, Value = client.userName, ExtraValues = new string[] { client.score.ToString() } });
+                        BroadCast(new BHangMessage { Command = MessageCommand.guess, Value = client.userName, ExtraValues = new string[] { client.guess } });
+                        client.guess = "";
                     }
+                    var msg = new BHangMessage { Command = MessageCommand.displayWord, Value = new string(displayword) };
+                    BroadCast(msg);
                     //en rad
 
                     //handle guesses
@@ -109,7 +115,7 @@ namespace BetaHangServer
 
 
             //end game and display final points...
-            BroadCast(new BHangMessage { Command = MessageCommand.timeLeft, Value = "Exit requested..." });
+            BroadCast(new BHangMessage { Command = MessageCommand.endGame, Value = "Exit requested..." });
         }
 
         internal bool AddPlayer(ClientHandler newClient)

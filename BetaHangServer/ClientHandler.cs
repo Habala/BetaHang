@@ -11,7 +11,7 @@ namespace BetaHangServer
         public TcpClient tcpClient;
         public event Action<ClientHandler, BHangMessage> onMessage;
         internal string userName;
-        internal string guess;
+        internal string guess ="";
         internal int score;
 
         public bool IsReady { get; internal set; }

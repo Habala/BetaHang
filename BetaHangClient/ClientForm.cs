@@ -35,6 +35,8 @@ namespace BetaHangClient
 
         private void debugDisplay(BHangMessage obj)
         {
+            if (obj.Command == MessageCommand.timeLeft)
+                return;
             string msges = obj.Command + " ";
             if (obj.Value != null)
                 msges += obj.Value + " ";
@@ -43,7 +45,8 @@ namespace BetaHangClient
                 {
                     msges += item + " ";
                 }
-            listBoxDebug.Items.Add(msges);
+            //listBoxDebug.Items.Add(msges);
+            listBoxDebug.Items.Insert(0, msges);
         }
 
         private void GameStateUpdate(Gamestate state)
@@ -101,6 +104,19 @@ namespace BetaHangClient
         private void ClientForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonSubmitGuess_Click(object sender, EventArgs e)
+        {
+            var guess = textBoxGuess.Text;
+            if (guess == null || guess == "")
+                return;
+            var message = new BHangMessage
+            {
+                Command = MessageCommand.guess,
+                Value = guess
+            };
+            myClient.Send(message);
         }
     }
 }

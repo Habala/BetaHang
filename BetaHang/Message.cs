@@ -24,5 +24,6 @@ namespace BetaHang
         none,
         displayWord,
         score,
+        endGame,
     }
 }
