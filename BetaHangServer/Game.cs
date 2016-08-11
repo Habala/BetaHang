@@ -97,7 +97,7 @@ namespace BetaHangServer
                         client.score += correct;
                         BroadCast(new BHangMessage { Command = MessageCommand.score, Value = client.userName, ExtraValues = new string[] { "client.score" } });
                     }
-
+                    //en rad
 
                     //handle guesses
 
