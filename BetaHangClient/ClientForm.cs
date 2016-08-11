@@ -21,15 +21,27 @@ namespace BetaHangClient
         public ClientForm()
         {
             InitializeComponent();
-
+            CheckForIllegalCrossThreadCalls = false;
             gameState = new Gamestate();
             GameStateUpdate(gameState);
             gameState.onStateChange = GameStateUpdate;
             myClient = new Client();
             myClient.onMessage += gameState.ReceiveMessage;
-          
+            myClient.onMessage += debugDisplay;
+
             myClient.Start();
             
+        }
+
+        private void debugDisplay(BHangMessage obj)
+        {
+            string msges = obj.Command + " ";
+            msges += obj.Value + " ";
+            foreach (var item in obj.ExtraValues)
+            {
+                msges += item + " ";
+            }
+            listBoxDebug.Items.Add(msges);
         }
 
         private void GameStateUpdate(Gamestate state)

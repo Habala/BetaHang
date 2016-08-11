@@ -22,5 +22,7 @@ namespace BetaHang
         disconnect,
         timeLeft,
         none,
+        displayWord,
+        score,
     }
 }

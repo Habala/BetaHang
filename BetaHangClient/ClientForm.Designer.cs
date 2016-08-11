@@ -35,23 +35,24 @@
             this.player3Label = new System.Windows.Forms.Label();
             this.player4Label = new System.Windows.Forms.Label();
             this.readyButton = new System.Windows.Forms.Button();
+            this.listBoxDebug = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(35, 129);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox1.Location = new System.Drawing.Point(26, 105);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(351, 22);
+            this.textBox1.Size = new System.Drawing.Size(264, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(219, 159);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Location = new System.Drawing.Point(164, 129);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(168, 23);
+            this.button1.Size = new System.Drawing.Size(126, 19);
             this.button1.TabIndex = 1;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -60,10 +61,9 @@
             // player1Label
             // 
             this.player1Label.AutoSize = true;
-            this.player1Label.Location = new System.Drawing.Point(31, 476);
-            this.player1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.player1Label.Location = new System.Drawing.Point(23, 387);
             this.player1Label.Name = "player1Label";
-            this.player1Label.Size = new System.Drawing.Size(90, 17);
+            this.player1Label.Size = new System.Drawing.Size(67, 13);
             this.player1Label.TabIndex = 2;
             this.player1Label.Text = "player1Label";
             this.player1Label.Click += new System.EventHandler(this.label1_Click);
@@ -71,49 +71,54 @@
             // player2Label
             // 
             this.player2Label.AutoSize = true;
-            this.player2Label.Location = new System.Drawing.Point(215, 476);
-            this.player2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.player2Label.Location = new System.Drawing.Point(161, 387);
             this.player2Label.Name = "player2Label";
-            this.player2Label.Size = new System.Drawing.Size(90, 17);
+            this.player2Label.Size = new System.Drawing.Size(67, 13);
             this.player2Label.TabIndex = 3;
             this.player2Label.Text = "player2Label";
             // 
             // player3Label
             // 
             this.player3Label.AutoSize = true;
-            this.player3Label.Location = new System.Drawing.Point(381, 476);
-            this.player3Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.player3Label.Location = new System.Drawing.Point(286, 387);
             this.player3Label.Name = "player3Label";
-            this.player3Label.Size = new System.Drawing.Size(90, 17);
+            this.player3Label.Size = new System.Drawing.Size(67, 13);
             this.player3Label.TabIndex = 4;
             this.player3Label.Text = "player3Label";
             // 
             // player4Label
             // 
             this.player4Label.AutoSize = true;
-            this.player4Label.Location = new System.Drawing.Point(559, 476);
-            this.player4Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.player4Label.Location = new System.Drawing.Point(419, 387);
             this.player4Label.Name = "player4Label";
-            this.player4Label.Size = new System.Drawing.Size(90, 17);
+            this.player4Label.Size = new System.Drawing.Size(67, 13);
             this.player4Label.TabIndex = 5;
             this.player4Label.Text = "player4Label";
             // 
             // readyButton
             // 
-            this.readyButton.Location = new System.Drawing.Point(548, 129);
-            this.readyButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.readyButton.Location = new System.Drawing.Point(411, 105);
             this.readyButton.Name = "readyButton";
-            this.readyButton.Size = new System.Drawing.Size(100, 28);
+            this.readyButton.Size = new System.Drawing.Size(75, 23);
             this.readyButton.TabIndex = 6;
             this.readyButton.Text = "Ready!";
             this.readyButton.UseVisualStyleBackColor = true;
             this.readyButton.Click += new System.EventHandler(this.readyButton_Click);
             // 
+            // listBoxDebug
+            // 
+            this.listBoxDebug.FormattingEnabled = true;
+            this.listBoxDebug.Location = new System.Drawing.Point(26, 185);
+            this.listBoxDebug.Name = "listBoxDebug";
+            this.listBoxDebug.Size = new System.Drawing.Size(217, 160);
+            this.listBoxDebug.TabIndex = 7;
+            // 
             // ClientForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(715, 644);
+            this.ClientSize = new System.Drawing.Size(536, 523);
+            this.Controls.Add(this.listBoxDebug);
             this.Controls.Add(this.readyButton);
             this.Controls.Add(this.player4Label);
             this.Controls.Add(this.player3Label);
@@ -121,7 +126,7 @@
             this.Controls.Add(this.player1Label);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ClientForm";
             this.Text = "Client";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -140,6 +145,7 @@
         private System.Windows.Forms.Label player3Label;
         private System.Windows.Forms.Label player4Label;
         private System.Windows.Forms.Button readyButton;
+        private System.Windows.Forms.ListBox listBoxDebug;
     }
 }
 

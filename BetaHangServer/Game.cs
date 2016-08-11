@@ -19,7 +19,7 @@ namespace BetaHangServer
         public bool InGame = false;
         public int MaxPlayers = 4;
         internal Action<ClientHandler, BHangMessage> echoMessageToForm;
-        private string displayword = "somethingElse";
+        private char[] displayword = "somethingElse".ToArray();
         private Thread myThread;
         private bool shutdownRequested = false;
         Random rnd = new Random();
@@ -43,7 +43,7 @@ namespace BetaHangServer
             {
                 lock (Clients)
                 {
-                    if (Clients.Count >= 2 && Clients.All(c => c.IsReady))
+                    if (Clients.Count >= 1 && Clients.All(c => c.IsReady))
                     {
                         waitingForClients = false;
                         InGame = true;
@@ -53,15 +53,18 @@ namespace BetaHangServer
                 //Wait for cilents to be ready.
             }
 
-            int wordsPlayed = 0;
             string[] words = File.ReadAllLines("OrdTillBetaHang.txt", Encoding.Unicode);
-            echoMessageToForm(null, new BHangMessage { Command = MessageCommand.none, Value = words[0] });
+            int wordsPlayed = 0;
 
             while (wordsPlayed < 6 && !shutdownRequested)
             {
-
+                secretword = words[rnd.Next(words.Length)];
+                displayword = (secretword.ToArray()
+                  .Select(c => '*').ToArray());
+                BroadCast(new BHangMessage { Command = MessageCommand.displayWord, Value = new string(displayword) });
+                echoMessageToForm(null, new BHangMessage { Command = MessageCommand.none, Value = secretword });
                 //entire game
-                while (secretword != displayword && !shutdownRequested)
+                while (secretword != new string(displayword) && !shutdownRequested)
                 {
                     int waited = 0;
                     while (waited < 10)
@@ -71,6 +74,30 @@ namespace BetaHangServer
                         //broadcast 10-waited s left
                         waited++;
                     }
+                    var oldDisplayWord = displayword;
+                    foreach (var client in Clients)
+                    {
+                        var guess = client.guess;
+                        int correct = 0;
+                        if (guess != null && guess.Length == 1)
+                        {
+                            for (int i = 0; i < secretword.Length; i++)
+                            {
+                                if (oldDisplayWord[i] == '*' && guess[0] == secretword[i])
+                                {
+                                    displayword[i] = secretword[i];
+                                    correct++;
+                                }
+                            }
+                        }
+                        else if (guess == secretword)
+                        {
+                            correct = oldDisplayWord.Where(c => c == '*').Count();
+                        }
+                        client.score += correct;
+                        BroadCast(new BHangMessage { Command = MessageCommand.score, Value = client.userName, ExtraValues = new string[] { "client.score" } });
+                    }
+
 
                     //handle guesses
 
@@ -103,7 +130,7 @@ namespace BetaHangServer
                 }
             }
             return userAdded;
-            
+
         }
 
         private void BroadCast(BHangMessage message)

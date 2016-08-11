@@ -8,13 +8,12 @@ namespace BetaHangServer
 {
     public class ClientHandler
     {
-        //private Server myServer;
-        //public string userName;
         public TcpClient tcpClient;
-        public event Action<ClientHandler, BHangMessage> onMessage2; //todo: why no work?
-        public Action<ClientHandler, BHangMessage> onMessage;
+        public event Action<ClientHandler, BHangMessage> onMessage;
         internal string userName;
         internal string guess;
+        internal int score;
+
         public bool IsReady { get; internal set; }
 
         public ClientHandler(TcpClient c/*, Action<ClientHandler, BHangMessage> broadcast*/)
@@ -40,15 +39,6 @@ namespace BetaHangServer
             try
             {
                 BHangMessage message = null;
-                //NetworkStream n;
-                //dynamic JsonMessage;
-                //Get username
-                //n = tcpclient.GetStream();
-                //message = new BinaryReader(n).ReadString();
-                //JsonMessage = JsonConvert.DeserializeObject(message);
-                //myServer.Broadcast(this, message);
-                //this.userName = JsonMessage.message;
-                //Console.WriteLine("User selected username: " + this.userName);
 
                 while (true)
                 {
@@ -56,10 +46,8 @@ namespace BetaHangServer
                     string JsonTmpMsg = new BinaryReader(n).ReadString();
                     message = JsonConvert.DeserializeObject<BHangMessage>(JsonTmpMsg);
 
-                    
-                    onMessage(this, message);
 
-                    //todo: change to event onMessage2?.Invoke(this, message);
+                    onMessage(this, message);
                 }
 
                 //myServer.DisconnectClient(this);
@@ -70,6 +58,6 @@ namespace BetaHangServer
                 Console.WriteLine(ex.Message);
             }
         }
-        
+
     }
 }

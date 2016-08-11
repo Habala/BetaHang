@@ -20,6 +20,7 @@ namespace BetaHangServer
         public ServerForm()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
             myGame = new Game();
             myGame.echoMessageToForm = messageHandler;
             server = new Server(myGame);
