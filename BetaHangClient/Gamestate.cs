@@ -8,12 +8,13 @@ using System.Windows.Forms;
 
 namespace BetaHangClient
 {
-    class Gamestate
+    public class Gamestate
     {
         public List<Player> Players { get; set; }
         public string MyName { get; set; }
         public string DisplayWord { get; set; }
         public int timeLeft { get; private set; }
+        public bool HasEnded { get; set; }
 
         public Action<Gamestate> onStateChange;
 
@@ -100,6 +101,9 @@ namespace BetaHangClient
                     {
                         player.Guess = (message.ExtraValues[0]);
                     }
+                    break;
+                case MessageCommand.endGame:
+                    HasEnded = true;
                     break;
 
 
