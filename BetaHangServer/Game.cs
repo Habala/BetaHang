@@ -136,8 +136,11 @@ namespace BetaHangServer
                     //todo: change to event newClient.onMessage2 += messageHandler;
                     Clients.Add(newClient);
                     userAdded = true;
-                    var msg = new BHangMessage {Command = MessageCommand.newPlayer, Value=newClient.playerId };
+                    foreach (var client in Clients)
+                    {
+                    var msg = new BHangMessage {Command = MessageCommand.newPlayer, Value=client.playerId };
                     BroadCast(msg);
+                    }
                 }
             }
             return userAdded;

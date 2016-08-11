@@ -67,8 +67,11 @@ namespace BetaHangClient
                 case MessageCommand.timeLeft:
                     this.timeLeft = int.Parse(message.Value);
                     break;
-                case MessageCommand.newPlayer:                                        
+                case MessageCommand.newPlayer:
+                    if (Players.Where(c => c.Id == message.Value).Count() == 0)
+                    {
                     this.Players.Add(new Player(message.Value));
+                    }
                     break;
                 case MessageCommand.displayWord:
                     this.DisplayWord = message.Value == null?"":message.Value;
