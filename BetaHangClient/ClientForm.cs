@@ -16,18 +16,31 @@ namespace BetaHangClient
     public partial class ClientForm : Form
     {
         private Client myClient;
+        private Gamestate gameState;
 
         public ClientForm()
         {
             InitializeComponent();
 
+            gameState = new Gamestate();
+            GameStateUpdate(gameState);
+            gameState.onStateChange = GameStateUpdate;
             myClient = new Client();
-            myClient.onMessage += MessageHandler;
-
-            //Thread clientThread = new Thread(myClient.Start);
-            //clientThread.Start();
+            myClient.onMessage += gameState.ReceiveMessage;
+          
             myClient.Start();
-            //clientThread.Join();
+            
+        }
+
+        private void GameStateUpdate(Gamestate state)
+        {
+            player1Label.Text = state.Players[0].Name;
+            player2Label.Text = state.Players[1].Name;
+            player3Label.Text = state.Players[2].Name;
+            player4Label.Text = state.Players[3].Name;
+
+            textBox1.AppendText(state.timeLeft.ToString());
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -53,6 +66,8 @@ namespace BetaHangClient
         {
             player1Label.Text = "Don't click me";
         }
+
+
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {

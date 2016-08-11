@@ -11,7 +11,7 @@ namespace BetaHangServer
         //private Server myServer;
         //public string userName;
         public TcpClient tcpClient;
-        public event Action<ClientHandler, BHangMessage> onMessage2;
+        public event Action<ClientHandler, BHangMessage> onMessage2; //todo: why no work?
         public Action<ClientHandler, BHangMessage> onMessage;
         internal string userName;
         internal string guess;
