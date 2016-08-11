@@ -11,6 +11,7 @@ namespace BetaHang
         public MessageCommand Command { get; set; }
         public string Value { get; set; }
         public string[] ExtraValues { get; set; }
+        //TODO: Ta bort array? 
 
     }
 

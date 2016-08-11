@@ -41,8 +41,8 @@ namespace BetaHangClient
             //Console.WriteLine($"IP: {localIP}");
             #endregion
 
-            client = new TcpClient("192.168.220.66", 5000);
-            //client = new TcpClient(localIP, 5000);
+            //client = new TcpClient("192.168.220.66", 5000);
+            client = new TcpClient(localIP, 5000);
 
             listenerThread = new Thread(Listen);
             listenerThread.Start();
@@ -106,6 +106,19 @@ namespace BetaHangClient
             {
                 //Console.WriteLine(ex.Message);
             }
+        }
+
+        internal void SubmitGuess(string text)
+        {
+            var guess = text;
+            if (guess == null || guess == "")
+                return;
+            var message = new BHangMessage
+            {
+                Command = MessageCommand.guess,
+                Value = guess
+            };
+            Send(message);
         }
     }
 }

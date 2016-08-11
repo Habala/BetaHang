@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BetaHangClient
 {
@@ -25,13 +26,16 @@ namespace BetaHangClient
 
         public class Player
         {
+
             public string Name { get; set; }
             public int Score { get; set; }
             public bool isReady = false;
             public string Id { get; set; }
+            public string Guess { get; set; }
 
             public Player(string Id)
             {
+                Guess = "";
                 this.Id = Id;
                 Name = "Player x";
                 Score = 0;
@@ -66,6 +70,19 @@ namespace BetaHangClient
                 case MessageCommand.newPlayer:                                        
                     this.Players.Add(new Player(message.Value));
                     break;
+                case MessageCommand.displayWord:
+                    this.DisplayWord = message.Value == null?"":message.Value;
+                    break;
+                case MessageCommand.score:
+                    player = this.Players.Where(p => p.Id == message.Value).SingleOrDefault();
+                    if (player != null)
+                    {
+                        player.Score = int.Parse(message.ExtraValues[0]);
+                    }
+                    break;
+                //case MessageCommand.guess:
+
+                
                 case MessageCommand.none:
 
                     break;

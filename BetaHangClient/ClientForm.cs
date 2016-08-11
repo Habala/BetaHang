@@ -58,38 +58,49 @@ namespace BetaHangClient
                     {
                         case 0:
                             player1Label.Text = state.Players[0].Name;
+                            lblPlayerOneGuess.Text = state.Players[0].Guess;
+                            lblPlayerOnePoints.Text = state.Players[0].Score.ToString();
                             break;
                         case 1:
                             player2Label.Text = state.Players[1].Name;
+                            lblPlayerTwoGuess.Text = state.Players[1].Guess;
+                            lblPlayerTwoPoints.Text = state.Players[1].Score.ToString();
                             break;
                         case 2:
                             player3Label.Text = state.Players[2].Name;
+                            lblPlayerThreeGuess.Text = state.Players[2].Guess;
+                            lblPlayerThreeGuess.Text = state.Players[2].Score.ToString();
                             break;
                         case 3:
                             player4Label.Text = state.Players[3].Name;
+                            LblPlayerFourGuess.Text = state.Players[3].Guess;
+                            lblPlayerFourPoints.Text = state.Players[3].Score.ToString();
+
                             break;
                         default:
                             break;
                     }
                 }
 
-            textBox1.AppendText(state.timeLeft.ToString());
+            textBox1.Text = (state.timeLeft.ToString());
+            LblDisplayWord.Text = state.DisplayWord;
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            myClient.Send(new BHangMessage { Command = BetaHang.MessageCommand.guess, Value = "Button test" });
-        }
-        private void MessageHandler(BHangMessage message)
-        {
-            //textBox1.Text = message;
-            textBox1.AppendText(message.Value);
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    myClient.Send(new BHangMessage { Command = BetaHang.MessageCommand.guess, Value = "Button test" });
+        //}
 
-            player1Label.Text = "" + (int)message.Command;
+        //private void MessageHandler(BHangMessage message)
+        //{
+        //    //textBox1.Text = message;
+        //    textBox1.AppendText(message.Value);
+
+        //    player1Label.Text = "" + (int)message.Command;
 
 
-        }
+        //}
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -125,15 +136,16 @@ namespace BetaHangClient
 
         private void buttonSubmitGuess_Click(object sender, EventArgs e)
         {
-            var guess = textBoxGuess.Text;
-            if (guess == null || guess == "")
-                return;
-            var message = new BHangMessage
-            {
-                Command = MessageCommand.guess,
-                Value = guess
-            };
-            myClient.Send(message);
+            myClient.SubmitGuess(textBoxGuess.Text);
+            textBoxGuess.Text = "";
+
         }
+
+        private void textBoxGuess_KeyPress(object sender, KeyPressEventArgs e)
+        {
+         
+        }
+
+
     }
 }
