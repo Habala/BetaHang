@@ -30,17 +30,18 @@ namespace BetaHangClient
             myClient.onMessage += debugDisplay;
 
             myClient.Start();
-            
+
         }
 
         private void debugDisplay(BHangMessage obj)
         {
             string msges = obj.Command + " ";
             msges += obj.Value + " ";
-            foreach (var item in obj.ExtraValues)
-            {
-                msges += item + " ";
-            }
+            if (obj.ExtraValues != null)
+                foreach (var item in obj.ExtraValues)
+                {
+                    msges += item + " ";
+                }
             listBoxDebug.Items.Add(msges);
         }
 
@@ -63,10 +64,10 @@ namespace BetaHangClient
         {
             //textBox1.Text = message;
             textBox1.AppendText(message.Value);
-            
-            player1Label.Text = ""+(int)message.Command;
 
-            
+            player1Label.Text = "" + (int)message.Command;
+
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -91,7 +92,7 @@ namespace BetaHangClient
             var message = new BHangMessage
             {
                 Command = MessageCommand.isReady,
-                Value=""
+                Value = ""
             };
             myClient.Send(message);
         }
