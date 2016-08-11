@@ -74,7 +74,7 @@ namespace BetaHangServer
                         //broadcast 10-waited s left
                         waited--;
                     }
-                    var oldDisplayWord = displayword;
+                    var oldDisplayWord = (char[])displayword.Clone();
                     foreach (var client in Clients)
                     {
                         var guess = client.guess?.ToUpper();

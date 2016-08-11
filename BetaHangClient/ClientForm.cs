@@ -59,7 +59,8 @@ namespace BetaHangClient
                         case 0:
                             player1Label.Text = state.Players[0].Name;
                             lblPlayerOneGuess.Text = state.Players[0].Guess;
-                            lblPlayerOnePoints.Text = state.Players[0].Score.ToString();
+                            lblPlayerOnePoints.Text = state.Players[0].Score.ToString() + " "
+                                + state.Players[0].ScoreChange.ToString();
                             break;
                         case 1:
                             player2Label.Text = state.Players[1].Name;
@@ -143,7 +144,7 @@ namespace BetaHangClient
 
         private void textBoxGuess_KeyPress(object sender, KeyPressEventArgs e)
         {
-         
+
         }
 
 

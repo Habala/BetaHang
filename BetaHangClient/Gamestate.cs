@@ -28,10 +28,21 @@ namespace BetaHangClient
         {
 
             public string Name { get; set; }
-            public int Score { get; set; }
+            private int score;
+            public int Score
+            {
+                get { return score; }
+                set
+                {
+                    int oldScore = score;
+                    score = value;
+                    ScoreChange = score - oldScore;
+                }
+            }
             public bool isReady = false;
             public string Id { get; set; }
             public string Guess { get; set; }
+            public int ScoreChange { get; set; }
 
             public Player(string Id)
             {
@@ -70,11 +81,11 @@ namespace BetaHangClient
                 case MessageCommand.newPlayer:
                     if (Players.Where(c => c.Id == message.Value).Count() == 0)
                     {
-                    this.Players.Add(new Player(message.Value));
+                        this.Players.Add(new Player(message.Value));
                     }
                     break;
                 case MessageCommand.displayWord:
-                    this.DisplayWord = message.Value == null?"":message.Value;
+                    this.DisplayWord = message.Value == null ? "" : message.Value;
                     break;
                 case MessageCommand.score:
                     player = this.Players.Where(p => p.Id == message.Value).SingleOrDefault();
@@ -83,9 +94,15 @@ namespace BetaHangClient
                         player.Score = int.Parse(message.ExtraValues[0]);
                     }
                     break;
-                //case MessageCommand.guess:
+                case MessageCommand.guess:
+                    player = this.Players.Where(p => p.Id == message.Value).SingleOrDefault();
+                    if (player != null)
+                    {
+                        player.Guess = (message.ExtraValues[0]);
+                    }
+                    break;
 
-                
+
                 case MessageCommand.none:
 
                     break;
