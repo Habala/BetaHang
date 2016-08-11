@@ -97,8 +97,8 @@ namespace BetaHangServer
                         }
 
                         client.score += correct;
-                        BroadCast(new BHangMessage { Command = MessageCommand.score, Value = client.userName, ExtraValues = new string[] { client.score.ToString() } });
-                        BroadCast(new BHangMessage { Command = MessageCommand.guess, Value = client.userName, ExtraValues = new string[] { client.guess } });
+                        BroadCast(new BHangMessage { Command = MessageCommand.score, Value = client.playerId, ExtraValues = new string[] { client.score.ToString() } });
+                        BroadCast(new BHangMessage { Command = MessageCommand.guess, Value = client.playerId, ExtraValues = new string[] { client.guess } });
                         client.guess = "";
                     }
                     var msg = new BHangMessage { Command = MessageCommand.displayWord, Value = new string(displayword) };
@@ -128,11 +128,13 @@ namespace BetaHangServer
             {
                 if (!InGame && Clients.Count < MaxPlayers)
                 {
-                    newClient.userName = $"Player {Clients.Count + 1}";
+                    newClient.playerId = $"Player {Clients.Count + 1}";
                     newClient.onMessage += messageHandler;
                     //todo: change to event newClient.onMessage2 += messageHandler;
                     Clients.Add(newClient);
                     userAdded = true;
+                    var msg = new BHangMessage {Command = MessageCommand.newPlayer, Value=newClient.playerId };
+                    BroadCast(msg);
                 }
             }
             return userAdded;
@@ -165,14 +167,14 @@ namespace BetaHangServer
                 {
 
                     case MessageCommand.changeName:
-                        sender.userName = msg.Value;
+                        sender.playerId = msg.Value;
                         break;
                     case MessageCommand.guess:
                         sender.guess = msg.Value;
                         break;
                     case MessageCommand.isReady:
                         sender.IsReady = true;
-                        log = $"set user {sender.userName} ready";
+                        log = $"set user {sender.playerId} ready";
                         break;
                     case MessageCommand.disconnect:
                         //todo: user disconnectar switch case

@@ -10,7 +10,7 @@ namespace BetaHangServer
     {
         public TcpClient tcpClient;
         public event Action<ClientHandler, BHangMessage> onMessage;
-        internal string userName;
+        internal string playerId;
         internal string guess ="";
         internal int score;
 

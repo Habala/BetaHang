@@ -20,12 +20,7 @@ namespace BetaHangClient
         {
             MyName = "Please input name";
             DisplayWord = "* * * *";
-            Players = new List<Player> {
-                new Player { Name = "Player 1client"},
-                new Player { Name = "Player 2client"},
-                new Player { Name = "Player 3client"},
-                new Player { Name = "Player 4client"}
-            };
+            Players = new List<Player>();
         }
 
         public class Player
@@ -33,9 +28,11 @@ namespace BetaHangClient
             public string Name { get; set; }
             public int Score { get; set; }
             public bool isReady = false;
+            public string Id { get; set; }
 
-            public Player()
+            public Player(string Id)
             {
+                this.Id = Id;
                 Name = "Player x";
                 Score = 0;
             }
