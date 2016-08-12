@@ -29,5 +29,6 @@ namespace BetaHang
         newPlayer,
         join,
         beginGame,
+        RoundNr,
     }
 }

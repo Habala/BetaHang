@@ -105,6 +105,7 @@ namespace BetaHangServer
                 BroadCast(new BHangMessage { Command = MessageCommand.displayWord, Value = secretword });
                 Thread.Sleep(1500);
                 wordsPlayed++;
+                BroadCast(new BHangMessage { Command = MessageCommand.RoundNr, Value = wordsPlayed.ToString() });
 
             }
 

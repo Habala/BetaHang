@@ -17,6 +17,8 @@ namespace BetaHangClient
         public bool HasEnded { get; set; }
         public bool HasBegun { get; set; }
 
+        public int Round { get; set; }
+
         public Action<Gamestate> onStateChange;
 
         public Gamestate()
@@ -50,7 +52,7 @@ namespace BetaHangClient
             {
                 Guess = "";
                 this.Id = Id;
-                Name = $"Player {Id}";
+                Name = Id;
                 Score = 0;
             }
         }
@@ -98,6 +100,9 @@ namespace BetaHangClient
                         {
                             player.Score = int.Parse(message.ExtraValues[0]);
                         }
+                        break;
+                    case MessageCommand.RoundNr:
+                        Round = int.Parse(message.Value);
                         break;
                     case MessageCommand.guess:
                         player = this.Players.Where(p => p.Id == message.Value).SingleOrDefault();

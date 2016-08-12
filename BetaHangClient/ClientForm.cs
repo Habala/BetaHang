@@ -88,6 +88,8 @@ namespace BetaHangClient
 
             textBox1.Text = (state.timeLeft.ToString());
             LblDisplayWord.Text = state.DisplayWord;
+            lblRound.Text = $"Round: {state.Round}";
+
 
         }
 
