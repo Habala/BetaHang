@@ -39,6 +39,9 @@ namespace BetaHangServer
 
         public void Run()
         {
+            
+            //Console.WriteLine($"IP: {localIP}");
+
             TcpListener listener = new TcpListener(IPAddress.Any, 5000);
             //Console.WriteLine("Server up and running, waiting for messages...");
             listeners.Add(listener);
