@@ -64,9 +64,10 @@
             // player1Label
             // 
             this.player1Label.AutoSize = true;
+            this.player1Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player1Label.Location = new System.Drawing.Point(43, 328);
             this.player1Label.Name = "player1Label";
-            this.player1Label.Size = new System.Drawing.Size(68, 13);
+            this.player1Label.Size = new System.Drawing.Size(100, 20);
             this.player1Label.TabIndex = 2;
             this.player1Label.Text = "Player1Label";
             this.player1Label.Click += new System.EventHandler(this.label1_Click);
@@ -74,27 +75,30 @@
             // player2Label
             // 
             this.player2Label.AutoSize = true;
+            this.player2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player2Label.Location = new System.Drawing.Point(156, 328);
             this.player2Label.Name = "player2Label";
-            this.player2Label.Size = new System.Drawing.Size(68, 13);
+            this.player2Label.Size = new System.Drawing.Size(100, 20);
             this.player2Label.TabIndex = 3;
             this.player2Label.Text = "Player2Label";
             // 
             // player3Label
             // 
             this.player3Label.AutoSize = true;
+            this.player3Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player3Label.Location = new System.Drawing.Point(290, 328);
             this.player3Label.Name = "player3Label";
-            this.player3Label.Size = new System.Drawing.Size(68, 13);
+            this.player3Label.Size = new System.Drawing.Size(100, 20);
             this.player3Label.TabIndex = 4;
             this.player3Label.Text = "Player3Label";
             // 
             // player4Label
             // 
             this.player4Label.AutoSize = true;
+            this.player4Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player4Label.Location = new System.Drawing.Point(415, 328);
             this.player4Label.Name = "player4Label";
-            this.player4Label.Size = new System.Drawing.Size(68, 13);
+            this.player4Label.Size = new System.Drawing.Size(100, 20);
             this.player4Label.TabIndex = 5;
             this.player4Label.Text = "Player4Label";
             // 
@@ -128,72 +132,80 @@
             // lblPlayerOneGuess
             // 
             this.lblPlayerOneGuess.AutoSize = true;
+            this.lblPlayerOneGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerOneGuess.Location = new System.Drawing.Point(42, 290);
             this.lblPlayerOneGuess.Name = "lblPlayerOneGuess";
-            this.lblPlayerOneGuess.Size = new System.Drawing.Size(72, 13);
+            this.lblPlayerOneGuess.Size = new System.Drawing.Size(108, 20);
             this.lblPlayerOneGuess.TabIndex = 10;
             this.lblPlayerOneGuess.Text = "Player1Guess";
             // 
             // lblPlayerTwoGuess
             // 
             this.lblPlayerTwoGuess.AutoSize = true;
+            this.lblPlayerTwoGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerTwoGuess.Location = new System.Drawing.Point(156, 290);
             this.lblPlayerTwoGuess.Name = "lblPlayerTwoGuess";
-            this.lblPlayerTwoGuess.Size = new System.Drawing.Size(72, 13);
+            this.lblPlayerTwoGuess.Size = new System.Drawing.Size(108, 20);
             this.lblPlayerTwoGuess.TabIndex = 11;
             this.lblPlayerTwoGuess.Text = "Player2Guess";
             // 
             // lblPlayerThreeGuess
             // 
             this.lblPlayerThreeGuess.AutoSize = true;
+            this.lblPlayerThreeGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerThreeGuess.Location = new System.Drawing.Point(290, 290);
             this.lblPlayerThreeGuess.Name = "lblPlayerThreeGuess";
-            this.lblPlayerThreeGuess.Size = new System.Drawing.Size(72, 13);
+            this.lblPlayerThreeGuess.Size = new System.Drawing.Size(108, 20);
             this.lblPlayerThreeGuess.TabIndex = 12;
             this.lblPlayerThreeGuess.Text = "Player3Guess";
             // 
             // LblPlayerFourGuess
             // 
             this.LblPlayerFourGuess.AutoSize = true;
+            this.LblPlayerFourGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblPlayerFourGuess.Location = new System.Drawing.Point(414, 290);
             this.LblPlayerFourGuess.Name = "LblPlayerFourGuess";
-            this.LblPlayerFourGuess.Size = new System.Drawing.Size(72, 13);
+            this.LblPlayerFourGuess.Size = new System.Drawing.Size(108, 20);
             this.LblPlayerFourGuess.TabIndex = 13;
             this.LblPlayerFourGuess.Text = "Player4Guess";
             // 
             // lblPlayerOnePoints
             // 
             this.lblPlayerOnePoints.AutoSize = true;
+            this.lblPlayerOnePoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerOnePoints.Location = new System.Drawing.Point(43, 362);
             this.lblPlayerOnePoints.Name = "lblPlayerOnePoints";
-            this.lblPlayerOnePoints.Size = new System.Drawing.Size(71, 13);
+            this.lblPlayerOnePoints.Size = new System.Drawing.Size(105, 20);
             this.lblPlayerOnePoints.TabIndex = 14;
             this.lblPlayerOnePoints.Text = "Player1Points";
             // 
             // lblPlayerTwoPoints
             // 
             this.lblPlayerTwoPoints.AutoSize = true;
+            this.lblPlayerTwoPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerTwoPoints.Location = new System.Drawing.Point(156, 362);
             this.lblPlayerTwoPoints.Name = "lblPlayerTwoPoints";
-            this.lblPlayerTwoPoints.Size = new System.Drawing.Size(71, 13);
+            this.lblPlayerTwoPoints.Size = new System.Drawing.Size(105, 20);
             this.lblPlayerTwoPoints.TabIndex = 15;
             this.lblPlayerTwoPoints.Text = "Player2Points";
             // 
             // lblPlayerThreePoints
             // 
             this.lblPlayerThreePoints.AutoSize = true;
+            this.lblPlayerThreePoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerThreePoints.Location = new System.Drawing.Point(290, 362);
             this.lblPlayerThreePoints.Name = "lblPlayerThreePoints";
-            this.lblPlayerThreePoints.Size = new System.Drawing.Size(71, 13);
+            this.lblPlayerThreePoints.Size = new System.Drawing.Size(105, 20);
             this.lblPlayerThreePoints.TabIndex = 16;
             this.lblPlayerThreePoints.Text = "Player3Points";
             // 
             // lblPlayerFourPoints
             // 
             this.lblPlayerFourPoints.AutoSize = true;
+            this.lblPlayerFourPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerFourPoints.Location = new System.Drawing.Point(414, 362);
             this.lblPlayerFourPoints.Name = "lblPlayerFourPoints";
-            this.lblPlayerFourPoints.Size = new System.Drawing.Size(71, 13);
+            this.lblPlayerFourPoints.Size = new System.Drawing.Size(105, 20);
             this.lblPlayerFourPoints.TabIndex = 17;
             this.lblPlayerFourPoints.Text = "Player4Points";
             // 
