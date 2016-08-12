@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.player1Label = new System.Windows.Forms.Label();
             this.player2Label = new System.Windows.Forms.Label();
             this.player3Label = new System.Windows.Forms.Label();
             this.player4Label = new System.Windows.Forms.Label();
-            this.readyButton = new System.Windows.Forms.Button();
             this.listBoxDebug = new System.Windows.Forms.ListBox();
             this.textBoxGuess = new System.Windows.Forms.TextBox();
             this.buttonSubmitGuess = new System.Windows.Forms.Button();
@@ -59,25 +57,18 @@
             this.tBPassword = new System.Windows.Forms.TextBox();
             this.tBUserName = new System.Windows.Forms.TextBox();
             this.tBServerIP = new System.Windows.Forms.TextBox();
+            this.lblCountDown = new System.Windows.Forms.Label();
             this.PanelGameStart.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(430, 31);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(56, 20);
-            this.textBox1.TabIndex = 0;
             // 
             // player1Label
             // 
             this.player1Label.AutoSize = true;
-            this.player1Label.Location = new System.Drawing.Point(47, 328);
+            this.player1Label.Location = new System.Drawing.Point(43, 328);
             this.player1Label.Name = "player1Label";
-            this.player1Label.Size = new System.Drawing.Size(67, 13);
+            this.player1Label.Size = new System.Drawing.Size(68, 13);
             this.player1Label.TabIndex = 2;
-            this.player1Label.Text = "player1Label";
+            this.player1Label.Text = "Player1Label";
             this.player1Label.Click += new System.EventHandler(this.label1_Click);
             // 
             // player2Label
@@ -85,37 +76,27 @@
             this.player2Label.AutoSize = true;
             this.player2Label.Location = new System.Drawing.Point(156, 328);
             this.player2Label.Name = "player2Label";
-            this.player2Label.Size = new System.Drawing.Size(67, 13);
+            this.player2Label.Size = new System.Drawing.Size(68, 13);
             this.player2Label.TabIndex = 3;
-            this.player2Label.Text = "player2Label";
+            this.player2Label.Text = "Player2Label";
             // 
             // player3Label
             // 
             this.player3Label.AutoSize = true;
-            this.player3Label.Location = new System.Drawing.Point(295, 328);
+            this.player3Label.Location = new System.Drawing.Point(290, 328);
             this.player3Label.Name = "player3Label";
-            this.player3Label.Size = new System.Drawing.Size(67, 13);
+            this.player3Label.Size = new System.Drawing.Size(68, 13);
             this.player3Label.TabIndex = 4;
-            this.player3Label.Text = "player3Label";
+            this.player3Label.Text = "Player3Label";
             // 
             // player4Label
             // 
             this.player4Label.AutoSize = true;
             this.player4Label.Location = new System.Drawing.Point(415, 328);
             this.player4Label.Name = "player4Label";
-            this.player4Label.Size = new System.Drawing.Size(67, 13);
+            this.player4Label.Size = new System.Drawing.Size(68, 13);
             this.player4Label.TabIndex = 5;
-            this.player4Label.Text = "player4Label";
-            // 
-            // readyButton
-            // 
-            this.readyButton.Location = new System.Drawing.Point(22, 31);
-            this.readyButton.Name = "readyButton";
-            this.readyButton.Size = new System.Drawing.Size(75, 23);
-            this.readyButton.TabIndex = 6;
-            this.readyButton.Text = "Ready!";
-            this.readyButton.UseVisualStyleBackColor = true;
-            this.readyButton.Click += new System.EventHandler(this.readyButton_Click);
+            this.player4Label.Text = "Player4Label";
             // 
             // listBoxDebug
             // 
@@ -147,7 +128,7 @@
             // lblPlayerOneGuess
             // 
             this.lblPlayerOneGuess.AutoSize = true;
-            this.lblPlayerOneGuess.Location = new System.Drawing.Point(47, 290);
+            this.lblPlayerOneGuess.Location = new System.Drawing.Point(42, 290);
             this.lblPlayerOneGuess.Name = "lblPlayerOneGuess";
             this.lblPlayerOneGuess.Size = new System.Drawing.Size(72, 13);
             this.lblPlayerOneGuess.TabIndex = 10;
@@ -192,7 +173,7 @@
             // lblPlayerTwoPoints
             // 
             this.lblPlayerTwoPoints.AutoSize = true;
-            this.lblPlayerTwoPoints.Location = new System.Drawing.Point(157, 362);
+            this.lblPlayerTwoPoints.Location = new System.Drawing.Point(156, 362);
             this.lblPlayerTwoPoints.Name = "lblPlayerTwoPoints";
             this.lblPlayerTwoPoints.Size = new System.Drawing.Size(71, 13);
             this.lblPlayerTwoPoints.TabIndex = 15;
@@ -201,7 +182,7 @@
             // lblPlayerThreePoints
             // 
             this.lblPlayerThreePoints.AutoSize = true;
-            this.lblPlayerThreePoints.Location = new System.Drawing.Point(295, 362);
+            this.lblPlayerThreePoints.Location = new System.Drawing.Point(290, 362);
             this.lblPlayerThreePoints.Name = "lblPlayerThreePoints";
             this.lblPlayerThreePoints.Size = new System.Drawing.Size(71, 13);
             this.lblPlayerThreePoints.TabIndex = 16;
@@ -353,6 +334,16 @@
             this.tBServerIP.Size = new System.Drawing.Size(147, 20);
             this.tBServerIP.TabIndex = 0;
             // 
+            // lblCountDown
+            // 
+            this.lblCountDown.AutoSize = true;
+            this.lblCountDown.Font = new System.Drawing.Font("Gill Sans Nova Cond", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCountDown.Location = new System.Drawing.Point(455, 9);
+            this.lblCountDown.Name = "lblCountDown";
+            this.lblCountDown.Size = new System.Drawing.Size(69, 62);
+            this.lblCountDown.TabIndex = 22;
+            this.lblCountDown.Text = "77";
+            // 
             // ClientForm
             // 
             this.AcceptButton = this.buttonSubmitGuess;
@@ -373,12 +364,11 @@
             this.Controls.Add(this.buttonSubmitGuess);
             this.Controls.Add(this.textBoxGuess);
             this.Controls.Add(this.listBoxDebug);
-            this.Controls.Add(this.readyButton);
             this.Controls.Add(this.player4Label);
             this.Controls.Add(this.player3Label);
             this.Controls.Add(this.player2Label);
             this.Controls.Add(this.player1Label);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lblCountDown);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ClientForm";
             this.Text = "Client";
@@ -392,12 +382,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label player1Label;
         private System.Windows.Forms.Label player2Label;
         private System.Windows.Forms.Label player3Label;
         private System.Windows.Forms.Label player4Label;
-        private System.Windows.Forms.Button readyButton;
         private System.Windows.Forms.ListBox listBoxDebug;
         private System.Windows.Forms.TextBox textBoxGuess;
         private System.Windows.Forms.Button buttonSubmitGuess;
@@ -423,6 +411,7 @@
         private System.Windows.Forms.Button btnReadyForGame;
         private System.Windows.Forms.ListBox PlayerListBox;
         private System.Windows.Forms.Button buttonJoin;
+        private System.Windows.Forms.Label lblCountDown;
     }
 }
 

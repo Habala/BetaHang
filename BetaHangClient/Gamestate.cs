@@ -18,6 +18,25 @@ namespace BetaHangClient
         public bool HasBegun { get; set; }
 
         public int Round { get; set; }
+        public int MaxScore
+        {
+            get
+            {
+                int max = 0;
+                if (Players != null)
+                {
+                    foreach (var item in Players)
+                    {
+                        if (item.Score > max)
+                        {
+                            max = item.Score;
+                        }
+                    }
+                
+                }
+                return max;
+            }
+        }
 
         public Action<Gamestate> onStateChange;
 
@@ -133,7 +152,7 @@ namespace BetaHangClient
             }
 
             onStateChange(this);
-            
+
         }
     }
 }

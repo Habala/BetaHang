@@ -61,7 +61,7 @@ namespace BetaHangServer
         {
             try
             {
-                textBox1.Text = message.Value;
+                serverDisplayBox.Text = message.Value;
             }
             catch (Exception ex)
             {

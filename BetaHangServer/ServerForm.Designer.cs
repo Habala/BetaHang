@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.serverDisplayBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxServerIP = new System.Windows.Forms.TextBox();
             this.textBoxServerPW = new System.Windows.Forms.TextBox();
@@ -37,10 +37,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(128, 192);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(385, 22);
-            this.textBox1.TabIndex = 1;
+            this.serverDisplayBox.Location = new System.Drawing.Point(128, 192);
+            this.serverDisplayBox.Name = "textBox1";
+            this.serverDisplayBox.Size = new System.Drawing.Size(385, 22);
+            this.serverDisplayBox.TabIndex = 1;
             // 
             // label1
             // 
@@ -83,7 +83,7 @@
             this.Controls.Add(this.textBoxServerPW);
             this.Controls.Add(this.textBoxServerIP);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.serverDisplayBox);
             this.Name = "ServerForm";
             this.Text = "Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ServerForm_FormClosing);
@@ -94,7 +94,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox serverDisplayBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxServerIP;
         private System.Windows.Forms.TextBox textBoxServerPW;
