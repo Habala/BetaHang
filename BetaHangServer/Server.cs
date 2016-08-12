@@ -94,8 +94,6 @@ namespace BetaHangServer
 
                     NetworkStream n = tmpClient.tcpClient.GetStream();
                     BinaryWriter w = new BinaryWriter(n);
-                    //DataContractJsonSerializer
-                    //w.Write(client.userName + " says: " + message);
                     w.Write(message);
                     w.Flush();
 

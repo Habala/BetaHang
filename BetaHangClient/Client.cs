@@ -41,8 +41,8 @@ namespace BetaHangClient
             //Console.WriteLine($"IP: {localIP}");
             #endregion
 
-            client = new TcpClient("192.168.220.27", 5000);
-            //client = new TcpClient(localIP, 5000);
+            //client = new TcpClient("192.168.220.27", 5000);
+            client = new TcpClient(localIP, 5000);
 
             listenerThread = new Thread(Listen);
             listenerThread.Start();
