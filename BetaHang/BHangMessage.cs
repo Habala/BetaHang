@@ -28,5 +28,6 @@ namespace BetaHang
         endGame,
         newPlayer,
         join,
+        beginGame,
     }
 }

@@ -45,6 +45,8 @@ namespace BetaHangClient
 
         private void GameStateUpdate(Gamestate state)
         {
+            if (state.HasBegun)
+                PanelGameStart.Hide();
             PlayerListBox.Items.Clear();
 
             if (state.Players != null)

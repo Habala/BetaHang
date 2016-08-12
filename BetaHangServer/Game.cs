@@ -50,7 +50,7 @@ namespace BetaHangServer
                 Thread.Sleep(50);
                 //Wait for cilents to be ready.
             }
-
+            BroadCast(new BHangMessage { Command = MessageCommand.beginGame });
             string[] words = File.ReadAllLines("OrdTillBetaHang.txt", Encoding.Unicode);
             int wordsPlayed = 0;
 
@@ -132,7 +132,11 @@ namespace BetaHangServer
                     userAdded = true;
                     foreach (var client in Clients)
                     {
-                        var msg = new BHangMessage { Command = MessageCommand.newPlayer, Value = client.playerId };
+                        if(client.IsReady)
+                        {
+                            BroadCast(new BHangMessage { Command = MessageCommand.isReady, Value = client.playerId });
+                        }
+                        var msg = new BHangMessage { Command = MessageCommand.newPlayer, Value = client.playerId};
                         BroadCast(msg);
                     }
                 }

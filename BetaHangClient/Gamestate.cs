@@ -15,6 +15,7 @@ namespace BetaHangClient
         public string DisplayWord { get; set; }
         public int timeLeft { get; private set; }
         public bool HasEnded { get; set; }
+        public bool HasBegun { get; set; }
 
         public Action<Gamestate> onStateChange;
 
@@ -105,6 +106,9 @@ namespace BetaHangClient
                         break;
                     case MessageCommand.endGame:
                         HasEnded = true;
+                        break;
+                    case MessageCommand.beginGame:
+                        HasBegun = true;
                         break;
 
 
