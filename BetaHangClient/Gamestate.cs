@@ -64,7 +64,9 @@ namespace BetaHangClient
                 switch (message.Command)
                 {
                     case MessageCommand.changeName:
-                        MyName = message.Value;
+                        player = Players.Where(p => p.Id == message.Value).SingleOrDefault();
+                        if (player != null)
+                            player.Name = message.ExtraValues[0];
                         break;
                     case MessageCommand.isReady:
                         player = Players

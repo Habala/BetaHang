@@ -177,8 +177,9 @@ namespace BetaHangServer
                     {
 
                         case MessageCommand.changeName:
-                            sender.playerId = msg.Value;
+                            //sender.playerId = msg.Value;
                             log = $"{sender.playerId} changed name to {msg.Value}";
+                            BroadCast(new BHangMessage { Command = MessageCommand.changeName, Value = sender.playerId, ExtraValues = new string[] { msg.Value } });
                             break;
                         case MessageCommand.guess:
                             sender.guess = msg.Value;
