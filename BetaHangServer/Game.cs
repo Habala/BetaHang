@@ -35,8 +35,6 @@ namespace BetaHangServer
         }
         private void Run()
         {
-            //secretword = Randomizer.SecretWord();
-
             //wait for players
             bool waitingForClients = true;
             while (waitingForClients && !shutdownRequested)
@@ -133,8 +131,8 @@ namespace BetaHangServer
                     userAdded = true;
                     foreach (var client in Clients)
                     {
-                    var msg = new BHangMessage {Command = MessageCommand.newPlayer, Value=client.playerId };
-                    BroadCast(msg);
+                        var msg = new BHangMessage { Command = MessageCommand.newPlayer, Value = client.playerId };
+                        BroadCast(msg);
                     }
                 }
             }
@@ -146,14 +144,14 @@ namespace BetaHangServer
         {
             try
             {
-            foreach (var tmpClient in Clients)
-            {
-                NetworkStream n = tmpClient.tcpClient.GetStream();
-                BinaryWriter w = new BinaryWriter(n);
-                var Jsonmsg = JsonConvert.SerializeObject(message);
-                w.Write(Jsonmsg);
-                w.Flush();
-            }
+                foreach (var tmpClient in Clients)
+                {
+                    NetworkStream n = tmpClient.tcpClient.GetStream();
+                    BinaryWriter w = new BinaryWriter(n);
+                    var Jsonmsg = JsonConvert.SerializeObject(message);
+                    w.Write(Jsonmsg);
+                    w.Flush();
+                }
 
             }
             catch (Exception ex)
@@ -162,35 +160,40 @@ namespace BetaHangServer
             }
         }
 
-        private void handleClientMessage(string message)
-        {
-
-        }
 
         internal void messageHandler(ClientHandler sender, BHangMessage msg)
         {
             string log = "";
-            lock (lockObject)
+            try
             {
-                switch (msg.Command)
+                lock (lockObject)
                 {
+                    switch (msg.Command)
+                    {
 
-                    case MessageCommand.changeName:
-                        sender.playerId = msg.Value;
-                        break;
-                    case MessageCommand.guess:
-                        sender.guess = msg.Value;
-                        break;
-                    case MessageCommand.isReady:
-                        sender.IsReady = true;
-                        log = $"set user {sender.playerId} ready";
-                        break;
-                    case MessageCommand.disconnect:
-                        //todo: user disconnectar switch case
-                        break;
-                    default:
-                        break;
+                        case MessageCommand.changeName:
+                            sender.playerId = msg.Value;
+                            log = $"{sender.playerId} changed name to {msg.Value}";
+                            break;
+                        case MessageCommand.guess:
+                            sender.guess = msg.Value;
+                            break;
+                        case MessageCommand.isReady:
+                            sender.IsReady = true;
+                            log = $"set user {sender.playerId} ready";
+                            break;
+                        case MessageCommand.disconnect:
+                            log = $"User {sender.playerId} disconnected";
+                            //todo: user disconnectar switch case
+                            break;
+                        default:
+                            break;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message + " " + ex.TargetSite);
             }
             //do game stuff
             var newMsg = new BHangMessage { Value = log };

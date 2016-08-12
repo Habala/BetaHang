@@ -53,13 +53,16 @@ namespace BetaHangServer
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            server.Broadcast("Servern skickar testmeddelande");
-        }
         private void messageHandler(ClientHandler sender, BHangMessage message)
         {
-            textBox1.Text = message.Value;
+            try
+            {
+                textBox1.Text = message.Value;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message + " " + ex.TargetSite);
+            }
         }
 
         private void ServerForm_FormClosing(object sender, FormClosingEventArgs e)

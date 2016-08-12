@@ -28,7 +28,7 @@ namespace BetaHangServer
             shutdown = true;
             foreach (var item in listeners)
             {
-                item.Stop();
+                item?.Stop();
             }
             listeners = null;
         }
@@ -55,7 +55,7 @@ namespace BetaHangServer
                     ClientHandler newClient = new ClientHandler(c /*, this.messageHandler*/); 
                     //clients.Add(newClient);
 
-                    Thread clientThread = new Thread(newClient.Run);
+                    Thread clientThread = new Thread(newClient.Listener);
                     clientThread.Start();
                     //todo: next line might not be needed, part of attempts to get good shutdowns
                     listenerThreads.Add(clientThread);
@@ -87,19 +87,25 @@ namespace BetaHangServer
         
         public void Broadcast(string message)
         {
-            var Jsonmessage = "";
-
-            foreach (ClientHandler tmpClient in clients)
+            try
             {
+                foreach (ClientHandler tmpClient in clients)
+                {
 
-                NetworkStream n = tmpClient.tcpClient.GetStream();
-                BinaryWriter w = new BinaryWriter(n);
-                //DataContractJsonSerializer
-                //w.Write(client.userName + " says: " + message);
-                w.Write(message);
-                w.Flush();
+                    NetworkStream n = tmpClient.tcpClient.GetStream();
+                    BinaryWriter w = new BinaryWriter(n);
+                    //DataContractJsonSerializer
+                    //w.Write(client.userName + " says: " + message);
+                    w.Write(message);
+                    w.Flush();
 
+                }
             }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message + " " + ex.TargetSite);
+            }
+            
         }
     }
 }

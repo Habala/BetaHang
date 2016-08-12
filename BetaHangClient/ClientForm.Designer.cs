@@ -56,7 +56,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(56, 20);
             this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // player1Label
             // 
@@ -120,7 +119,6 @@
             this.textBoxGuess.Name = "textBoxGuess";
             this.textBoxGuess.Size = new System.Drawing.Size(154, 20);
             this.textBoxGuess.TabIndex = 8;
-            this.textBoxGuess.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxGuess_KeyPress);
             // 
             // buttonSubmitGuess
             // 
@@ -257,7 +255,6 @@
             this.Name = "ClientForm";
             this.Text = "Client";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.ClientForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

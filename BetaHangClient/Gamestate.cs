@@ -114,17 +114,14 @@ namespace BetaHangClient
                     default:
                         break;
                 }
-                onStateChange(this);
             }
             catch (Exception ex)
             {
 
                 Logger.Error(ex.Message + ex.TargetSite);
             }
-         
-            //todo: write to log
-            //todo: handle messages to client form
-            //if (onStateChange != null)
+
+            onStateChange(this);
             
         }
     }

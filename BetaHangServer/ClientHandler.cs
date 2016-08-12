@@ -16,25 +16,19 @@ namespace BetaHangServer
 
         public bool IsReady { get; internal set; }
 
-        public ClientHandler(TcpClient c/*, Action<ClientHandler, BHangMessage> broadcast*/)
+        public ClientHandler(TcpClient c)
         {
             this.tcpClient = c;
-            //messageHandler = broadcast;
         }
 
 
-        void Listener()
-        {
-            string message = "";
-
-            //  messageHandler(message);
-        }
+        //Todo: use sender to send messages, make this.tcpClient private
         void sender(string message)
         {
             //send message to client.
         }
 
-        internal void Run()
+        internal void Listener()
         {
             try
             {

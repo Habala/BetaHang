@@ -91,21 +91,7 @@ namespace BetaHangClient
 
         }
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    myClient.Send(new BHangMessage { Command = BetaHang.MessageCommand.guess, Value = "Button test" });
-        //}
-
-        //private void MessageHandler(BHangMessage message)
-        //{
-        //    //textBox1.Text = message;
-        //    textBox1.AppendText(message.Value);
-
-        //    player1Label.Text = "" + (int)message.Command;
-
-
-        //}
-
+        
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             myClient.RequestShutdown();
@@ -116,13 +102,7 @@ namespace BetaHangClient
             player1Label.Text = "Don't click me";
         }
 
-
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void readyButton_Click(object sender, EventArgs e)
         {
             var message = new BHangMessage
@@ -133,10 +113,7 @@ namespace BetaHangClient
             myClient.Send(message);
         }
 
-        private void ClientForm_Load(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void buttonSubmitGuess_Click(object sender, EventArgs e)
         {
@@ -145,11 +122,7 @@ namespace BetaHangClient
 
         }
 
-        private void textBoxGuess_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
+        
 
     }
 }
