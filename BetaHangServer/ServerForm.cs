@@ -46,6 +46,10 @@ namespace BetaHangServer
             serverThread = new Thread(server.Run);
             serverThread.Start();
 
+            var rnd = new Random();
+            server.serverPass = "abc" + rnd.Next(10000);
+            textBoxServerPW.Text = server.serverPass;
+            textBoxServerPW.ReadOnly = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)

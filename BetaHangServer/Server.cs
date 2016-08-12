@@ -21,7 +21,7 @@ namespace BetaHangServer
         List<Thread> listenerThreads = new List<Thread>();
         bool shutdown = false;
         List<TcpListener> listeners = new List<TcpListener>();
-        private string serverPass = "";
+        internal string serverPass = "";
 
         public void RequestShutdown()
         {
