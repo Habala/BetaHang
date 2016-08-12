@@ -41,7 +41,7 @@ namespace BetaHangClient
             //Console.WriteLine($"IP: {localIP}");
             #endregion
 
-            client = new TcpClient("192.168.220.98", 5000);
+            client = new TcpClient("192.168.220.27", 5000);
             //client = new TcpClient(localIP, 5000);
 
             listenerThread = new Thread(Listen);
@@ -70,13 +70,14 @@ namespace BetaHangClient
                     //dynamic m = JsonConvert.DeserializeObject(message);
                     //Console.WriteLine("Raw message: " + message);
                     BHangMessage message = JsonConvert.DeserializeObject<BHangMessage>(jsonMessage);
+                    Logger.Log(message);
                     onMessage?.Invoke(message);
                     //Console.WriteLine("Other: " + message);
                 }
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex.Message);
+                Logger.Error(ex.Message + ex.TargetSite);
             }
             //graceful exit?
         }
@@ -104,7 +105,7 @@ namespace BetaHangClient
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex.Message);
+                Logger.Error(ex.Message + ex.TargetSite);
             }
         }
 

@@ -46,7 +46,7 @@ namespace BetaHangServer
                     string JsonTmpMsg = new BinaryReader(n).ReadString();
                     message = JsonConvert.DeserializeObject<BHangMessage>(JsonTmpMsg);
 
-
+                    Logger.Log(message);
                     onMessage(this, message);
                 }
 
@@ -55,7 +55,7 @@ namespace BetaHangServer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Error(ex.Message + ex.TargetSite);
             }
         }
 

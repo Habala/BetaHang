@@ -58,65 +58,74 @@ namespace BetaHangClient
         public void ReceiveMessage(BHangMessage message)
         {
             Player player;
-
-            switch (message.Command)
+            try
             {
-                case MessageCommand.changeName:
-                    MyName = message.Value;
-                    break;
-                case MessageCommand.isReady:
-                    player = Players
-                        .Where(p => p.Name == message.Value)
-                        .SingleOrDefault();
-                    player.isReady = true;
-                    break;
-                case MessageCommand.disconnect:
-                    player = Players
-                          .Where(p => p.Name == message.Value)
-                          .SingleOrDefault();
-                    player.isReady = false;
-                    break;
-                case MessageCommand.timeLeft:
-                    this.timeLeft = int.Parse(message.Value);
-                    break;
-                case MessageCommand.newPlayer:
-                    if (Players.Where(c => c.Id == message.Value).Count() == 0)
-                    {
-                        this.Players.Add(new Player(message.Value));
-                    }
-                    break;
-                case MessageCommand.displayWord:
-                    this.DisplayWord = message.Value == null ? "" : message.Value;
-                    break;
-                case MessageCommand.score:
-                    player = this.Players.Where(p => p.Id == message.Value).SingleOrDefault();
-                    if (player != null)
-                    {
-                        player.Score = int.Parse(message.ExtraValues[0]);
-                    }
-                    break;
-                case MessageCommand.guess:
-                    player = this.Players.Where(p => p.Id == message.Value).SingleOrDefault();
-                    if (player != null)
-                    {
-                        player.Guess = (message.ExtraValues[0]);
-                    }
-                    break;
-                case MessageCommand.endGame:
-                    HasEnded = true;
-                    break;
+                switch (message.Command)
+                {
+                    case MessageCommand.changeName:
+                        MyName = message.Value;
+                        break;
+                    case MessageCommand.isReady:
+                        player = Players
+                            .Where(p => p.Name == message.Value)
+                            .SingleOrDefault();
+                        player.isReady = true;
+                        break;
+                    case MessageCommand.disconnect:
+                        player = Players
+                              .Where(p => p.Name == message.Value)
+                              .SingleOrDefault();
+                        player.isReady = false;
+                        break;
+                    case MessageCommand.timeLeft:
+                        this.timeLeft = int.Parse(message.Value);
+                        break;
+                    case MessageCommand.newPlayer:
+                        if (Players.Where(c => c.Id == message.Value).Count() == 0)
+                        {
+                            this.Players.Add(new Player(message.Value));
+                        }
+                        break;
+                    case MessageCommand.displayWord:
+                        this.DisplayWord = message.Value == null ? "" : message.Value;
+                        break;
+                    case MessageCommand.score:
+                        player = this.Players.Where(p => p.Id == message.Value).SingleOrDefault();
+                        if (player != null)
+                        {
+                            player.Score = int.Parse(message.ExtraValues[0]);
+                        }
+                        break;
+                    case MessageCommand.guess:
+                        player = this.Players.Where(p => p.Id == message.Value).SingleOrDefault();
+                        if (player != null)
+                        {
+                            player.Guess = (message.ExtraValues[0]);
+                        }
+                        break;
+                    case MessageCommand.endGame:
+                        HasEnded = true;
+                        break;
 
 
-                case MessageCommand.none:
+                    case MessageCommand.none:
 
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
+                onStateChange(this);
             }
+            catch (Exception ex)
+            {
+
+                Logger.Error(ex.Message + ex.TargetSite);
+            }
+         
             //todo: write to log
             //todo: handle messages to client form
             //if (onStateChange != null)
-            onStateChange(this);
+            
         }
     }
 }

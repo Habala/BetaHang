@@ -144,6 +144,8 @@ namespace BetaHangServer
 
         private void BroadCast(BHangMessage message)
         {
+            try
+            {
             foreach (var tmpClient in Clients)
             {
                 NetworkStream n = tmpClient.tcpClient.GetStream();
@@ -151,6 +153,12 @@ namespace BetaHangServer
                 var Jsonmsg = JsonConvert.SerializeObject(message);
                 w.Write(Jsonmsg);
                 w.Flush();
+            }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message + ex.TargetSite);
             }
         }
 

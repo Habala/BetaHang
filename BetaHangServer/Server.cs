@@ -75,7 +75,7 @@ namespace BetaHangServer
             }
             catch (Exception ex)
             {
-                // Console.WriteLine(ex.Message);
+                Logger.Error(ex.Message + ex.TargetSite);
             }
             finally
             {
