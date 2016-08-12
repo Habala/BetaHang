@@ -122,11 +122,12 @@ namespace BetaHangServer
             bool userAdded = false;
             lock (Clients)
             {
-                if (!InGame && Clients.Count < MaxPlayers)
+                if (!InGame && Clients.Count < MaxPlayers
+                    && Clients.Where(c => c.playerId == newClient.playerId).Count() == 0)
                 {
-                    newClient.playerId = $"Player {Clients.Count + 1}";
+                    //newClient.playerId = $"Player {Clients.Count + 1}";
                     newClient.onMessage += messageHandler;
-                    //todo: change to event newClient.onMessage2 += messageHandler;
+                    //Todo: Check unique UserName yo!
                     Clients.Add(newClient);
                     userAdded = true;
                     foreach (var client in Clients)
@@ -180,6 +181,7 @@ namespace BetaHangServer
                             break;
                         case MessageCommand.isReady:
                             sender.IsReady = true;
+                            BroadCast(new BHangMessage { Command = MessageCommand.isReady, Value = sender.playerId });
                             log = $"set user {sender.playerId} ready";
                             break;
                         case MessageCommand.disconnect:

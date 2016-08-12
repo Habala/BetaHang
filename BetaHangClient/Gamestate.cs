@@ -67,13 +67,13 @@ namespace BetaHangClient
                         break;
                     case MessageCommand.isReady:
                         player = Players
-                            .Where(p => p.Name == message.Value)
+                            .Where(p => p.Id == message.Value)
                             .SingleOrDefault();
                         player.isReady = true;
                         break;
                     case MessageCommand.disconnect:
                         player = Players
-                              .Where(p => p.Name == message.Value)
+                              .Where(p => p.Id == message.Value)
                               .SingleOrDefault();
                         player.isReady = false;
                         break;

@@ -19,6 +19,17 @@ namespace BetaHangClient
         public Action<BHangMessage> onMessage;
         Thread listenerThread;
         private bool shutdown = false;
+        private string serverIP;
+
+        public Client(string serverIP)
+        {
+            this.serverIP = serverIP;
+        }
+
+        public Client()
+        {
+        }
+
         public void RequestShutdown()
         {
             client.Close();
@@ -42,8 +53,8 @@ namespace BetaHangClient
             #endregion
 
             //client = new TcpClient("192.168.220.27", 5000);
-            client = new TcpClient(localIP, 5000);
-
+            //client = new TcpClient(localIP, 5000);
+            client = new TcpClient(serverIP, 5000);
             listenerThread = new Thread(Listen);
             listenerThread.Start();
 

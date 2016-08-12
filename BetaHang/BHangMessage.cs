@@ -27,5 +27,6 @@ namespace BetaHang
         score,
         endGame,
         newPlayer,
+        join,
     }
 }

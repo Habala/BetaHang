@@ -25,12 +25,6 @@ namespace BetaHangClient
             gameState = new Gamestate();
             GameStateUpdate(gameState);
             gameState.onStateChange = GameStateUpdate;
-            myClient = new Client();
-            myClient.onMessage += gameState.ReceiveMessage;
-            myClient.onMessage += debugDisplay;
-
-            myClient.Start();
-
         }
 
         private void debugDisplay(BHangMessage obj)
@@ -51,34 +45,38 @@ namespace BetaHangClient
 
         private void GameStateUpdate(Gamestate state)
         {
+            PlayerListBox.Items.Clear();
+
             if (state.Players != null)
                 for (int i = 0; i < state.Players.Count && i < 4; i++)
                 {
+                    var playerName = state.Players[i].Name;
+                    var playerGuess = state.Players[i].Guess;
+                    var playerPoints = state.Players[i].Score;
+                    var playerScoreChange = state.Players[i].ScoreChange;
+                    var playerReady = state.Players[i].isReady ? "Ready": "Not ready";
+                    PlayerListBox.Items.Add(playerName + " " + playerReady);
                     switch (i)
                     {
                         case 0:
-                            player1Label.Text = state.Players[0].Name;
-                            lblPlayerOneGuess.Text = state.Players[0].Guess;
-                            lblPlayerOnePoints.Text = state.Players[0].Score.ToString() + " "
-                                + state.Players[0].ScoreChange.ToString();
+                            player1Label.Text = playerName;
+                            lblPlayerOneGuess.Text = playerGuess;
+                            lblPlayerOnePoints.Text = playerPoints+ " " + playerScoreChange;
                             break;
                         case 1:
-                            player2Label.Text = state.Players[1].Name;
-                            lblPlayerTwoGuess.Text = state.Players[1].Guess;
-                            lblPlayerTwoPoints.Text = state.Players[1].Score.ToString() + " "
-                     + state.Players[1].ScoreChange.ToString();
+                            player2Label.Text = playerName;
+                            lblPlayerTwoGuess.Text = playerGuess;
+                            lblPlayerTwoPoints.Text = playerPoints + " " + playerScoreChange;
                             break;
                         case 2:
-                            player3Label.Text = state.Players[2].Name;
-                            lblPlayerThreeGuess.Text = state.Players[2].Guess;
-                            lblPlayerThreePoints.Text = state.Players[2].Score.ToString() + " "
-                     + state.Players[2].ScoreChange.ToString();
+                            player3Label.Text = playerName;
+                            lblPlayerThreeGuess.Text = playerGuess;
+                            lblPlayerThreePoints.Text = playerPoints + " " + playerScoreChange;
                             break;
                         case 3:
-                            player4Label.Text = state.Players[3].Name;
-                            LblPlayerFourGuess.Text = state.Players[3].Guess;
-                            lblPlayerFourPoints.Text = state.Players[3].Score.ToString() + " "
-                     + state.Players[3].ScoreChange.ToString();
+                            player4Label.Text = playerName;
+                            LblPlayerFourGuess.Text = playerGuess;
+                            lblPlayerFourPoints.Text = playerPoints + " " + playerScoreChange;
 
                             break;
                         default:
@@ -122,7 +120,24 @@ namespace BetaHangClient
 
         }
 
-        
+        private void buttonJoin_Click(object sender, EventArgs e)
+        {
+            string serverIP = tBServerIP.Text;
+            string serverPassword = tBPassword.Text;
+            string UserName = tBUserName.Text;
 
+            myClient = new Client(serverIP);
+            myClient.onMessage += gameState.ReceiveMessage;
+            myClient.onMessage += debugDisplay;
+
+            myClient.Start();
+
+            myClient.Send(new BHangMessage { Command = MessageCommand.join, Value = serverPassword, ExtraValues = new string[] { UserName } });
+        }
+
+        private void btnReadyForGame_Click(object sender, EventArgs e)
+        {
+            myClient.Send(new BHangMessage { Command = MessageCommand.isReady, Value = "" });
+        }
     }
 }

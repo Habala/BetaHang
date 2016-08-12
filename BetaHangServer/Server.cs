@@ -21,7 +21,7 @@ namespace BetaHangServer
         List<Thread> listenerThreads = new List<Thread>();
         bool shutdown = false;
         List<TcpListener> listeners = new List<TcpListener>();
-
+        private string serverPass = "";
 
         public void RequestShutdown()
         {
@@ -53,23 +53,15 @@ namespace BetaHangServer
                 {
                     TcpClient c = listener.AcceptTcpClient();
                     ClientHandler newClient = new ClientHandler(c /*, this.messageHandler*/); 
-                    //clients.Add(newClient);
+                    clients.Add(newClient);
+                    newClient.onMessage += MessageHandler;
+                    
 
                     Thread clientThread = new Thread(newClient.Listener);
                     clientThread.Start();
                     //todo: next line might not be needed, part of attempts to get good shutdowns
                     listenerThreads.Add(clientThread);
 
-                    bool added = false;
-                    if (myGame != null)
-                    {
-                        added = myGame.AddPlayer(newClient);
-                        clients.Remove(newClient);
-                    }
-                    if (!added)
-                    {
-                        //todo: send fail message to client, then drop connection
-                    }
                         
                 }
             }
@@ -104,6 +96,31 @@ namespace BetaHangServer
                 Logger.Error(ex.Message + " " + ex.TargetSite);
             }
             
+        }
+        private void MessageHandler(ClientHandler sender, BHangMessage message)
+        {
+            try
+            {
+
+            sender.playerId = message.ExtraValues[0];
+
+            bool added = false;
+            if (myGame != null && serverPass == message.Value)
+            {
+                added = myGame.AddPlayer(sender);
+                clients.Remove(sender);
+            }
+            if (!added)
+            {
+                //todo: send fail message to client, then drop connection
+            }
+
+            }
+            catch (Exception ex)
+            {
+
+                Logger.Error(ex.Message + " " + ex.TargetSite);
+            }
         }
     }
 }

@@ -47,6 +47,19 @@
             this.lblPlayerFourPoints = new System.Windows.Forms.Label();
             this.LblDisplayWord = new System.Windows.Forms.Label();
             this.lblRound = new System.Windows.Forms.Label();
+            this.PanelGameStart = new System.Windows.Forms.Panel();
+            this.lbPlayerOverLB = new System.Windows.Forms.Label();
+            this.btnReadyForGame = new System.Windows.Forms.Button();
+            this.PlayerListBox = new System.Windows.Forms.ListBox();
+            this.buttonJoin = new System.Windows.Forms.Button();
+            this.Logo = new System.Windows.Forms.Label();
+            this.lbPassword = new System.Windows.Forms.Label();
+            this.lbServer = new System.Windows.Forms.Label();
+            this.lbUserName = new System.Windows.Forms.Label();
+            this.tBPassword = new System.Windows.Forms.TextBox();
+            this.tBUserName = new System.Windows.Forms.TextBox();
+            this.tBServerIP = new System.Windows.Forms.TextBox();
+            this.PanelGameStart.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -206,7 +219,7 @@
             // LblDisplayWord
             // 
             this.LblDisplayWord.AutoSize = true;
-            this.LblDisplayWord.Font = new System.Drawing.Font("Gill Sans Nova Cond Ultra Bold", 24F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblDisplayWord.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblDisplayWord.Location = new System.Drawing.Point(47, 125);
             this.LblDisplayWord.MinimumSize = new System.Drawing.Size(435, 100);
             this.LblDisplayWord.Name = "LblDisplayWord";
@@ -226,12 +239,127 @@
             this.lblRound.TabIndex = 19;
             this.lblRound.Text = "ROUND: X";
             // 
+            // PanelGameStart
+            // 
+            this.PanelGameStart.Controls.Add(this.lbPlayerOverLB);
+            this.PanelGameStart.Controls.Add(this.btnReadyForGame);
+            this.PanelGameStart.Controls.Add(this.PlayerListBox);
+            this.PanelGameStart.Controls.Add(this.buttonJoin);
+            this.PanelGameStart.Controls.Add(this.Logo);
+            this.PanelGameStart.Controls.Add(this.lbPassword);
+            this.PanelGameStart.Controls.Add(this.lbServer);
+            this.PanelGameStart.Controls.Add(this.lbUserName);
+            this.PanelGameStart.Controls.Add(this.tBPassword);
+            this.PanelGameStart.Controls.Add(this.tBUserName);
+            this.PanelGameStart.Controls.Add(this.tBServerIP);
+            this.PanelGameStart.Location = new System.Drawing.Point(11, 13);
+            this.PanelGameStart.Name = "PanelGameStart";
+            this.PanelGameStart.Size = new System.Drawing.Size(513, 460);
+            this.PanelGameStart.TabIndex = 20;
+            // 
+            // lbPlayerOverLB
+            // 
+            this.lbPlayerOverLB.AutoSize = true;
+            this.lbPlayerOverLB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPlayerOverLB.Location = new System.Drawing.Point(35, 261);
+            this.lbPlayerOverLB.Name = "lbPlayerOverLB";
+            this.lbPlayerOverLB.Size = new System.Drawing.Size(67, 20);
+            this.lbPlayerOverLB.TabIndex = 10;
+            this.lbPlayerOverLB.Text = "Players";
+            // 
+            // btnReadyForGame
+            // 
+            this.btnReadyForGame.Location = new System.Drawing.Point(400, 415);
+            this.btnReadyForGame.Name = "btnReadyForGame";
+            this.btnReadyForGame.Size = new System.Drawing.Size(75, 23);
+            this.btnReadyForGame.TabIndex = 9;
+            this.btnReadyForGame.Text = "Ready";
+            this.btnReadyForGame.UseVisualStyleBackColor = true;
+            this.btnReadyForGame.Click += new System.EventHandler(this.btnReadyForGame_Click);
+            // 
+            // PlayerListBox
+            // 
+            this.PlayerListBox.FormattingEnabled = true;
+            this.PlayerListBox.Location = new System.Drawing.Point(35, 293);
+            this.PlayerListBox.Name = "PlayerListBox";
+            this.PlayerListBox.Size = new System.Drawing.Size(440, 108);
+            this.PlayerListBox.TabIndex = 8;
+            // 
+            // buttonJoin
+            // 
+            this.buttonJoin.Location = new System.Drawing.Point(204, 192);
+            this.buttonJoin.Name = "buttonJoin";
+            this.buttonJoin.Size = new System.Drawing.Size(75, 23);
+            this.buttonJoin.TabIndex = 7;
+            this.buttonJoin.Text = "Join game";
+            this.buttonJoin.UseVisualStyleBackColor = true;
+            this.buttonJoin.Click += new System.EventHandler(this.buttonJoin_Click);
+            // 
+            // Logo
+            // 
+            this.Logo.AutoSize = true;
+            this.Logo.Font = new System.Drawing.Font("Gill Sans Ultra Bold Condensed", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Logo.Location = new System.Drawing.Point(175, 18);
+            this.Logo.Name = "Logo";
+            this.Logo.Size = new System.Drawing.Size(176, 49);
+            this.Logo.TabIndex = 6;
+            this.Logo.Text = "BetaHang";
+            // 
+            // lbPassword
+            // 
+            this.lbPassword.AutoSize = true;
+            this.lbPassword.Location = new System.Drawing.Point(35, 120);
+            this.lbPassword.Name = "lbPassword";
+            this.lbPassword.Size = new System.Drawing.Size(53, 13);
+            this.lbPassword.TabIndex = 5;
+            this.lbPassword.Text = "Password";
+            // 
+            // lbServer
+            // 
+            this.lbServer.AutoSize = true;
+            this.lbServer.Location = new System.Drawing.Point(35, 71);
+            this.lbServer.Name = "lbServer";
+            this.lbServer.Size = new System.Drawing.Size(38, 13);
+            this.lbServer.TabIndex = 4;
+            this.lbServer.Text = "Server";
+            // 
+            // lbUserName
+            // 
+            this.lbUserName.AutoSize = true;
+            this.lbUserName.Location = new System.Drawing.Point(35, 176);
+            this.lbUserName.Name = "lbUserName";
+            this.lbUserName.Size = new System.Drawing.Size(55, 13);
+            this.lbUserName.TabIndex = 3;
+            this.lbUserName.Text = "Username";
+            // 
+            // tBPassword
+            // 
+            this.tBPassword.Location = new System.Drawing.Point(38, 136);
+            this.tBPassword.Name = "tBPassword";
+            this.tBPassword.Size = new System.Drawing.Size(147, 20);
+            this.tBPassword.TabIndex = 2;
+            // 
+            // tBUserName
+            // 
+            this.tBUserName.Location = new System.Drawing.Point(38, 192);
+            this.tBUserName.Name = "tBUserName";
+            this.tBUserName.Size = new System.Drawing.Size(147, 20);
+            this.tBUserName.TabIndex = 1;
+            // 
+            // tBServerIP
+            // 
+            this.tBServerIP.Location = new System.Drawing.Point(38, 87);
+            this.tBServerIP.Name = "tBServerIP";
+            this.tBServerIP.Size = new System.Drawing.Size(147, 20);
+            this.tBServerIP.TabIndex = 0;
+            // 
             // ClientForm
             // 
             this.AcceptButton = this.buttonSubmitGuess;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(536, 523);
+            this.Controls.Add(this.PanelGameStart);
             this.Controls.Add(this.lblRound);
             this.Controls.Add(this.LblDisplayWord);
             this.Controls.Add(this.lblPlayerFourPoints);
@@ -255,6 +383,8 @@
             this.Name = "ClientForm";
             this.Text = "Client";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.PanelGameStart.ResumeLayout(false);
+            this.PanelGameStart.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,6 +411,18 @@
         private System.Windows.Forms.Label lblPlayerFourPoints;
         private System.Windows.Forms.Label LblDisplayWord;
         private System.Windows.Forms.Label lblRound;
+        private System.Windows.Forms.Panel PanelGameStart;
+        private System.Windows.Forms.Label Logo;
+        private System.Windows.Forms.Label lbPassword;
+        private System.Windows.Forms.Label lbServer;
+        private System.Windows.Forms.Label lbUserName;
+        private System.Windows.Forms.TextBox tBPassword;
+        private System.Windows.Forms.TextBox tBUserName;
+        private System.Windows.Forms.TextBox tBServerIP;
+        private System.Windows.Forms.Label lbPlayerOverLB;
+        private System.Windows.Forms.Button btnReadyForGame;
+        private System.Windows.Forms.ListBox PlayerListBox;
+        private System.Windows.Forms.Button buttonJoin;
     }
 }
 
