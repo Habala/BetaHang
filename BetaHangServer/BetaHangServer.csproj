@@ -90,6 +90,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BetaHang.wav" />
+    <Content Include="BetaHang_Tic1.wav" />
+    <Content Include="BetaHang_Tic2.wav" />
+    <Content Include="BetaHang_Tic3.wav" />
     <Content Include="OrdTillBetaHang.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

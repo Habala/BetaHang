@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -54,6 +55,8 @@ namespace BetaHangServer
             string[] words = File.ReadAllLines("OrdTillBetaHang.txt", Encoding.Unicode);
             int wordsPlayed = 0;
 
+                playSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang.wav");
+
             while (wordsPlayed < 6 && !shutdownRequested)
             {
                 secretword = words[rnd.Next(words.Length)].ToUpper();
@@ -71,6 +74,19 @@ namespace BetaHangServer
                         Thread.Sleep(1000);
                         //broadcast 10-waited s left
                         waited--;
+                        switch (waited)
+                        {
+                            
+                            case 3:
+                                playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic1.wav");
+                                break;
+                            case 2:
+                                playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic2.wav");
+                                break;
+                            case 1:
+                                playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic3.wav");
+                                break;
+                        }
                     }
                     var oldDisplayWord = (char[])displayword.Clone();
                     foreach (var client in Clients)
@@ -103,7 +119,7 @@ namespace BetaHangServer
                     BroadCast(msg);
                 }
                 BroadCast(new BHangMessage { Command = MessageCommand.displayWord, Value = secretword });
-                Thread.Sleep(1500);
+                Thread.Sleep(2000);
                 wordsPlayed++;
                 BroadCast(new BHangMessage { Command = MessageCommand.RoundNr, Value = wordsPlayed.ToString() });
 
@@ -113,6 +129,34 @@ namespace BetaHangServer
 
             //end game and display final points...
             BroadCast(new BHangMessage { Command = MessageCommand.endGame, Value = "Exit requested..." });
+        }
+
+        private void playSound(string c)
+        {
+
+            try
+            {
+                SoundPlayer sound = new SoundPlayer($@"{c}");
+                sound.PlayLooping();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message + "" + ex.TargetSite);
+            }
+        }
+
+        private void playTimerSound(string c)
+        {
+
+            try
+            {
+                SoundPlayer sound = new SoundPlayer($@"{c}");
+                sound.Play();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message + "" + ex.TargetSite);
+            }
         }
 
         internal bool AddPlayer(ClientHandler newClient)
