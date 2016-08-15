@@ -32,8 +32,11 @@ namespace BetaHangClient
 
         public void RequestShutdown()
         {
-            client.Close();
             shutdown = true;
+            client.Close();
+            listenerThread = null;
+            client = null;
+
         }
         public void Start()
         {
