@@ -39,7 +39,7 @@ namespace BetaHangServer
 
         public void Run()
         {
-            
+
             //Console.WriteLine($"IP: {localIP}");
 
             TcpListener listener = new TcpListener(IPAddress.Any, 5000);
@@ -52,17 +52,17 @@ namespace BetaHangServer
                 while (!shutdown)
                 {
                     TcpClient c = listener.AcceptTcpClient();
-                    ClientHandler newClient = new ClientHandler(c /*, this.messageHandler*/); 
+                    ClientHandler newClient = new ClientHandler(c /*, this.messageHandler*/);
                     clients.Add(newClient);
                     newClient.onMessage += MessageHandler;
-                    
+
 
                     Thread clientThread = new Thread(newClient.Listener);
                     clientThread.Start();
                     //todo: next line might not be needed, part of attempts to get good shutdowns
                     listenerThreads.Add(clientThread);
 
-                        
+
                 }
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace BetaHangServer
             }
         }
 
-        
+
         public void Broadcast(string message)
         {
             try
@@ -95,26 +95,33 @@ namespace BetaHangServer
             {
                 Logger.Error(ex.Message + " " + ex.TargetSite);
             }
-            
+
         }
         private void MessageHandler(ClientHandler sender, BHangMessage message)
         {
             try
             {
 
-            sender.playerId = message.ExtraValues[0];
+                sender.playerId = message.ExtraValues[0];
 
-            bool added = false;
-            if (myGame != null && serverPass == message.Value)
-            {
-                added = myGame.AddPlayer(sender);
-                clients.Remove(sender);
-            }
-            if (!added)
-            {
-                //todo: send fail message to client, then drop connection
-            }
-
+                bool added = false;
+                if (myGame != null && serverPass == message.Value)
+                {
+                    added = myGame.AddPlayer(sender);
+                    clients.Remove(sender);
+                    if (!added)
+                    {
+                        sender.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Game refused you, you inferior creature!" });
+                    }
+                }
+                else if (serverPass != message.Value)
+                {
+                    sender.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Invalid password!" });
+                }
+                else
+                {
+                    sender.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Game does not exist!" });
+                }
             }
             catch (Exception ex)
             {

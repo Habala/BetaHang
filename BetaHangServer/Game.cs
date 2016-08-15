@@ -55,8 +55,6 @@ namespace BetaHangServer
             string[] words = File.ReadAllLines("OrdTillBetaHang.txt", Encoding.Unicode);
             int wordsPlayed = 0;
 
-                playSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang.wav");
-
             while (wordsPlayed < 6 && !shutdownRequested)
             {
                 secretword = words[rnd.Next(words.Length)].ToUpper();
@@ -74,19 +72,19 @@ namespace BetaHangServer
                         Thread.Sleep(1000);
                         //broadcast 10-waited s left
                         waited--;
-                        switch (waited)
-                        {
-                            
-                            case 3:
-                                playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic1.wav");
-                                break;
-                            case 2:
-                                playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic2.wav");
-                                break;
-                            case 1:
-                                playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic3.wav");
-                                break;
-                        }
+                        //switch (waited)
+                        //{
+
+                        //    case 3:
+                        //        playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic1.wav");
+                        //        break;
+                        //    case 2:
+                        //        playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic2.wav");
+                        //        break;
+                        //    case 1:
+                        //        playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic3.wav");
+                        //        break;
+                        //}
                     }
                     var oldDisplayWord = (char[])displayword.Clone();
                     foreach (var client in Clients)
@@ -131,19 +129,6 @@ namespace BetaHangServer
             BroadCast(new BHangMessage { Command = MessageCommand.endGame, Value = "Exit requested..." });
         }
 
-        private void playSound(string c)
-        {
-
-            try
-            {
-                SoundPlayer sound = new SoundPlayer($@"{c}");
-                sound.PlayLooping();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message + "" + ex.TargetSite);
-            }
-        }
 
         private void playTimerSound(string c)
         {
@@ -163,26 +148,40 @@ namespace BetaHangServer
         {
             if (InGame)
                 return false;
+            if (newClient.playerId.Trim() == string.Empty)
+            {
+                newClient.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Do you even username? brah!" });
+                return false;
+            }
 
             bool userAdded = false;
             lock (Clients)
             {
-                if (!InGame && Clients.Count < MaxPlayers
-                    && Clients.Where(c => c.playerId == newClient.playerId).Count() == 0)
+                if (Clients.Where(c => c.playerId == newClient.playerId).Count() > 0)
                 {
-                    //newClient.playerId = $"Player {Clients.Count + 1}";
+                    newClient.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Oh such an unoriginal username.." });
+                }
+                else if (Clients.Count >= MaxPlayers)
+                {
+                    newClient.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Early bird gets the worm. And you ain't no bird.....brah (Game is full)" });
+                }
+                else if (InGame)
+                {
+                    newClient.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "You snooze, you lose (Game has already started)" });
+                }
+                else
+                {
                     newClient.onMessage += messageHandler;
-                    //Todo: Check unique UserName yo!
                     Clients.Add(newClient);
                     userAdded = true;
                     foreach (var client in Clients)
                     {
-                        if(client.IsReady)
+                        var msg = new BHangMessage { Command = MessageCommand.newPlayer, Value = client.playerId };
+                        BroadCast(msg);
+                        if (client.IsReady)
                         {
                             BroadCast(new BHangMessage { Command = MessageCommand.isReady, Value = client.playerId });
                         }
-                        var msg = new BHangMessage { Command = MessageCommand.newPlayer, Value = client.playerId};
-                        BroadCast(msg);
                     }
                 }
             }

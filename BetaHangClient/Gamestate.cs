@@ -136,7 +136,9 @@ namespace BetaHangClient
                     case MessageCommand.beginGame:
                         HasBegun = true;
                         break;
-
+                    case MessageCommand.ConnectionRefused:
+                        MessageBox.Show(message.Value);
+                        break;
 
                     case MessageCommand.none:
 

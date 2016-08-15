@@ -30,5 +30,6 @@ namespace BetaHang
         join,
         beginGame,
         RoundNr,
+        ConnectionRefused,
     }
 }

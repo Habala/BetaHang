@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,6 +18,9 @@ namespace BetaHangClient
     {
         private Client myClient;
         private Gamestate gameState;
+        SoundPlayer sound;
+        bool musicStarted;
+
 
         public ClientForm()
         {
@@ -46,7 +50,11 @@ namespace BetaHangClient
         private void GameStateUpdate(Gamestate state)
         {
             if (state.HasBegun)
+            {
                 PanelGameStart.Hide();
+                playSound(@"Tunes\BetaHang.wav");
+
+            }
             PlayerListBox.Items.Clear();
 
             string playerMaxScore = state.MaxScore.ToString();
@@ -151,6 +159,10 @@ namespace BetaHangClient
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             myClient.RequestShutdown();
+            if (sound != null)
+            {
+                sound.Stop();
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -184,18 +196,48 @@ namespace BetaHangClient
             string serverPassword = tBPassword.Text;
             string UserName = tBUserName.Text;
 
-            myClient = new Client(serverIP);
-            myClient.onMessage += gameState.ReceiveMessage;
-            myClient.onMessage += debugDisplay;
+            try
+            {
 
-            myClient.Start();
+                myClient = new Client(serverIP);
+                myClient.onMessage += gameState.ReceiveMessage;
+                myClient.onMessage += debugDisplay;
 
-            myClient.Send(new BHangMessage { Command = MessageCommand.join, Value = serverPassword, ExtraValues = new string[] { UserName } });
+                myClient.Start();
+                
+                myClient.Send(new BHangMessage { Command = MessageCommand.join, Value = serverPassword, ExtraValues = new string[] { UserName } });
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message + " " + ex.TargetSite);
+                MessageBox.Show("Connection to server failed: " + ex.Message);
+            }
+       
+
         }
 
         private void btnReadyForGame_Click(object sender, EventArgs e)
         {
             myClient.Send(new BHangMessage { Command = MessageCommand.isReady, Value = "" });
+        }
+
+        private void playSound(string c)
+        {
+            if (musicStarted == false)
+            {
+
+                try
+                {
+                    SoundPlayer sound = new SoundPlayer($@"{c}");
+                    sound.PlayLooping();
+                    musicStarted = true;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex.Message + "" + ex.TargetSite);
+                }
+            }
+            
         }
     }
 }

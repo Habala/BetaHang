@@ -11,7 +11,7 @@ namespace BetaHangServer
         public TcpClient tcpClient;
         public event Action<ClientHandler, BHangMessage> onMessage;
         internal string playerId;
-        internal string guess ="";
+        internal string guess = "";
         internal int score;
 
         public bool IsReady { get; internal set; }
@@ -21,11 +21,23 @@ namespace BetaHangServer
             this.tcpClient = c;
         }
 
-
-        //Todo: use sender to send messages, make this.tcpClient private
-        void sender(string message)
+        public void Send(BHangMessage message)
         {
-            //send message to client.
+
+            try
+            {
+
+                    NetworkStream n = tcpClient.GetStream();
+                    BinaryWriter w = new BinaryWriter(n);
+                    string JsonMessage = JsonConvert.SerializeObject(message);
+                    w.Write(JsonMessage);
+                    w.Flush();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message + " " + ex.TargetSite);
+            }
+
         }
 
         internal void Listener()
