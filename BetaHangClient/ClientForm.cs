@@ -125,8 +125,26 @@ namespace BetaHangClient
                             break;
                     }
                 }
+            if (lblCountDown.Text != state.timeLeft.ToString())
+            {
+                switch (state.timeLeft)     
+                {
+                    case 3:
 
+                        playTimerSound(@"Tunes\BetaHang_Tic3.wav");
+                        break;
+                    case 2:
+                        playTimerSound(@"Tunes\BetaHang_Tic2.wav");
+                        break;
+                    case 1:
+                        playTimerSound(@"Tunes\BetaHang_Tic1.wav");
+                        break;
+                    default:
+                        break;
+                }
+            }
             lblCountDown.Text = (state.timeLeft.ToString());
+
             LblDisplayWord.Text = state.DisplayWord;
             lblRound.Text = $"Round: {state.Round}";
 
@@ -223,6 +241,22 @@ namespace BetaHangClient
             myClient.Send(new BHangMessage { Command = MessageCommand.isReady, Value = "" });
         }
 
+        private void playTimerSound(string c)
+        {
+            try
+            {
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                var p1 = new MediaPlayer();
+                p1.Volume = 1;
+                p1.Open(new Uri(c));
+                p1.Play();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message + "" + ex.TargetSite);
+            }
+          
+        }
         private void playSound(string c)
         {
             if (musicStarted == false)
@@ -230,10 +264,6 @@ namespace BetaHangClient
 
                 try
                 {
-                    MediaPlayer mediaPlayer = new MediaPlayer();
-                    var p1 = new MediaPlayer();
-                    p1.Open(new Uri(@"C:\Projects\BetaHang\BetaHang\BetaHangClient\Tunes\BetaHang_Tic1.wav"));
-                    p1.Play();
                     SoundPlayer sound = new SoundPlayer($@"{c}");
                     sound.PlayLooping();
                     musicStarted = true;

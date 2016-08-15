@@ -76,19 +76,7 @@ namespace BetaHangServer
                         Thread.Sleep(1000);
                         //broadcast 10-waited s left
                         waited--;
-                        //switch (waited)
-                        //{
-
-                        //    case 3:
-                        //        playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic1.wav");
-                        //        break;
-                        //    case 2:
-                        //        playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic2.wav");
-                        //        break;
-                        //    case 1:
-                        //        playTimerSound(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\BetaHang\BetaHangServer\BetaHang_Tic3.wav");
-                        //        break;
-                        //}
+ 
                     }
                     var oldDisplayWord = (char[])displayword.Clone();
                     foreach (var client in Clients)
