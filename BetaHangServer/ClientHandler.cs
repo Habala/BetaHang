@@ -13,6 +13,7 @@ namespace BetaHangServer
         internal string playerId;
         internal string guess = "";
         internal int score;
+        private bool shutdownRequested;
 
         public bool IsReady { get; internal set; }
 
@@ -46,7 +47,7 @@ namespace BetaHangServer
             {
                 BHangMessage message = null;
 
-                while (true)
+                while (!shutdownRequested)
                 {
                     NetworkStream n = tcpClient.GetStream();
                     string JsonTmpMsg = new BinaryReader(n).ReadString();
@@ -57,7 +58,7 @@ namespace BetaHangServer
                 }
 
                 //myServer.DisconnectClient(this);
-                tcpClient.Close();
+                //tcpClient.Close();
             }
             catch (Exception ex)
             {
@@ -68,6 +69,8 @@ namespace BetaHangServer
         internal void RequestShutdown()
         {
             //todo: Close tcpclient and listenerthread.
+            shutdownRequested = true;
+            tcpClient.Close();
         }
     }
 }
