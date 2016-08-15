@@ -25,10 +25,10 @@ namespace BetaHangServer
         private Thread serverListenerThread;
         TcpListener listener;
 
-        internal event Action<BHangMessage,ClientHandler> onMessageSent;
+        internal event Action<BHangMessage, ClientHandler> onMessageSent;
         internal event Action<ClientHandler, BHangMessage> onMessageReceived;
         internal event Action<string> onHiddenWordChange;
-
+        
         public void RequestShutdown()
         {
             shutdown = true;
@@ -38,7 +38,7 @@ namespace BetaHangServer
             }
             ServerClients = null;
             listener?.Stop();
-            pendingGame.RequestShutdown();
+            pendingGame?.RequestShutdown();
             foreach (var item in runningGames)
             {
                 item.RequestShutdown();
@@ -46,8 +46,9 @@ namespace BetaHangServer
         }
         public Server()
         {
-            pendingGame = new Game();
-            pendingGame.onMessageReceived += MessageHandler;
+            //pendingGame = new Game();
+            //pendingGame.onMessageReceived += MessageHandler;
+
             //todo: handle sent messages and hidden word change
         }
 
@@ -119,13 +120,17 @@ namespace BetaHangServer
         //}
         private void MessageHandler(ClientHandler sender, BHangMessage message)
         {
-            if (pendingGame == null)
-                pendingGame = new Game();
-            if(pendingGame.InGame || pendingGame.Clients.Count >= pendingGame.MaxPlayers)
+            if (pendingGame == null ||
+                    pendingGame.InGame ||
+                    pendingGame.Clients.Count >= pendingGame.MaxPlayers)
             {
-                runningGames.Add(pendingGame);
+                if (pendingGame != null)
+                    runningGames.Add(pendingGame);
+
                 pendingGame = new Game();
                 pendingGame.onMessageReceived += MessageHandler;
+                pendingGame.onMessageSent += handleSentMessage;
+                pendingGame.onHiddenWordChange += handleHiddenWordChange;
                 //todo: handle sent messages and hidden word change
             }
             //Todo: check all running games and remove any that have finished.
@@ -170,6 +175,15 @@ namespace BetaHangServer
                 Logger.Error(ex.Message + " " + ex.TargetSite);
             }
             onMessageReceived?.Invoke(sender, message);
+        }
+
+        private void handleHiddenWordChange(string hiddenWord)
+        {
+            onHiddenWordChange?.Invoke(hiddenWord);
+        }
+        private void handleSentMessage(BHangMessage message, ClientHandler receiver)
+        {
+            onMessageSent?.Invoke(message, receiver);
         }
     }
 }
