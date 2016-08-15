@@ -65,7 +65,7 @@ namespace BetaHangClient
                     msges += item + " ";
                 }
             //listBoxDebug.Items.Add(msges);
-            listBoxDebug.Items.Insert(0, msges);
+            //listBoxDebug.Items.Insert(0, msges);
         }
 
         private void GameStateUpdate(Gamestate state)

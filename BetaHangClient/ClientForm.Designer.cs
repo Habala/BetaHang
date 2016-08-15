@@ -32,7 +32,6 @@
             this.player2Label = new System.Windows.Forms.Label();
             this.player3Label = new System.Windows.Forms.Label();
             this.player4Label = new System.Windows.Forms.Label();
-            this.listBoxDebug = new System.Windows.Forms.ListBox();
             this.textBoxGuess = new System.Windows.Forms.TextBox();
             this.buttonSubmitGuess = new System.Windows.Forms.Button();
             this.lblPlayerOneGuess = new System.Windows.Forms.Label();
@@ -101,14 +100,6 @@
             this.player4Label.Size = new System.Drawing.Size(91, 17);
             this.player4Label.TabIndex = 5;
             this.player4Label.Text = "Player4Label";
-            // 
-            // listBoxDebug
-            // 
-            this.listBoxDebug.FormattingEnabled = true;
-            this.listBoxDebug.Location = new System.Drawing.Point(11, 479);
-            this.listBoxDebug.Name = "listBoxDebug";
-            this.listBoxDebug.Size = new System.Drawing.Size(217, 160);
-            this.listBoxDebug.TabIndex = 7;
             // 
             // textBoxGuess
             // 
@@ -382,7 +373,6 @@
             this.Controls.Add(this.lblPlayerOneGuess);
             this.Controls.Add(this.buttonSubmitGuess);
             this.Controls.Add(this.textBoxGuess);
-            this.Controls.Add(this.listBoxDebug);
             this.Controls.Add(this.player4Label);
             this.Controls.Add(this.player3Label);
             this.Controls.Add(this.player2Label);
@@ -405,7 +395,6 @@
         private System.Windows.Forms.Label player2Label;
         private System.Windows.Forms.Label player3Label;
         private System.Windows.Forms.Label player4Label;
-        private System.Windows.Forms.ListBox listBoxDebug;
         private System.Windows.Forms.TextBox textBoxGuess;
         private System.Windows.Forms.Button buttonSubmitGuess;
         private System.Windows.Forms.Label lblPlayerOneGuess;
