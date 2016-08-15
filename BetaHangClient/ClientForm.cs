@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -130,14 +131,19 @@ namespace BetaHangClient
                 switch (state.timeLeft)     
                 {
                     case 3:
-
-                        playTimerSound(@"Tunes\BetaHang_Tic3.wav");
+                        string fileName = "BetaHang_Tic3.wav";
+                        string path = Path.Combine(Environment.CurrentDirectory, @"Tunes\", fileName);
+                        playTimerSound($@"{path}");
                         break;
                     case 2:
-                        playTimerSound(@"Tunes\BetaHang_Tic2.wav");
+                        string fileName2 = "BetaHang_Tic2.wav";
+                        string path2 = Path.Combine(Environment.CurrentDirectory, @"Tunes\", fileName2);
+                        playTimerSound($@"{path2}");
                         break;
                     case 1:
-                        playTimerSound(@"Tunes\BetaHang_Tic1.wav");
+                        string fileName3 = "BetaHang_Tic1.wav";
+                        string path3 = Path.Combine(Environment.CurrentDirectory, @"Tunes\", fileName3);
+                        playTimerSound($@"{path3}");
                         break;
                     default:
                         break;
@@ -248,7 +254,7 @@ namespace BetaHangClient
                 MediaPlayer mediaPlayer = new MediaPlayer();
                 var p1 = new MediaPlayer();
                 p1.Volume = 1;
-                p1.Open(new Uri(c));
+                p1.Open(new Uri($@"{c}"));
                 p1.Play();
             }
             catch (Exception ex)
