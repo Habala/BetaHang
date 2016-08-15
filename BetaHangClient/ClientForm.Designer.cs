@@ -64,10 +64,10 @@
             // player1Label
             // 
             this.player1Label.AutoSize = true;
-            this.player1Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.player1Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player1Label.Location = new System.Drawing.Point(43, 328);
             this.player1Label.Name = "player1Label";
-            this.player1Label.Size = new System.Drawing.Size(100, 20);
+            this.player1Label.Size = new System.Drawing.Size(91, 17);
             this.player1Label.TabIndex = 2;
             this.player1Label.Text = "Player1Label";
             this.player1Label.Click += new System.EventHandler(this.label1_Click);
@@ -75,30 +75,30 @@
             // player2Label
             // 
             this.player2Label.AutoSize = true;
-            this.player2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.player2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player2Label.Location = new System.Drawing.Point(156, 328);
             this.player2Label.Name = "player2Label";
-            this.player2Label.Size = new System.Drawing.Size(100, 20);
+            this.player2Label.Size = new System.Drawing.Size(91, 17);
             this.player2Label.TabIndex = 3;
             this.player2Label.Text = "Player2Label";
             // 
             // player3Label
             // 
             this.player3Label.AutoSize = true;
-            this.player3Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.player3Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player3Label.Location = new System.Drawing.Point(290, 328);
             this.player3Label.Name = "player3Label";
-            this.player3Label.Size = new System.Drawing.Size(100, 20);
+            this.player3Label.Size = new System.Drawing.Size(91, 17);
             this.player3Label.TabIndex = 4;
             this.player3Label.Text = "Player3Label";
             // 
             // player4Label
             // 
             this.player4Label.AutoSize = true;
-            this.player4Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.player4Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player4Label.Location = new System.Drawing.Point(415, 328);
             this.player4Label.Name = "player4Label";
-            this.player4Label.Size = new System.Drawing.Size(100, 20);
+            this.player4Label.Size = new System.Drawing.Size(91, 17);
             this.player4Label.TabIndex = 5;
             this.player4Label.Text = "Player4Label";
             // 
@@ -112,7 +112,7 @@
             // 
             // textBoxGuess
             // 
-            this.textBoxGuess.Location = new System.Drawing.Point(116, 414);
+            this.textBoxGuess.Location = new System.Drawing.Point(134, 414);
             this.textBoxGuess.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxGuess.Name = "textBoxGuess";
             this.textBoxGuess.Size = new System.Drawing.Size(154, 20);
@@ -120,52 +120,53 @@
             // 
             // buttonSubmitGuess
             // 
-            this.buttonSubmitGuess.Location = new System.Drawing.Point(316, 415);
+            this.buttonSubmitGuess.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.buttonSubmitGuess.Location = new System.Drawing.Point(306, 406);
             this.buttonSubmitGuess.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSubmitGuess.Name = "buttonSubmitGuess";
-            this.buttonSubmitGuess.Size = new System.Drawing.Size(88, 19);
+            this.buttonSubmitGuess.Size = new System.Drawing.Size(88, 36);
             this.buttonSubmitGuess.TabIndex = 9;
-            this.buttonSubmitGuess.Text = "submit guess";
-            this.buttonSubmitGuess.UseVisualStyleBackColor = true;
+            this.buttonSubmitGuess.Text = "Guess!";
+            this.buttonSubmitGuess.UseVisualStyleBackColor = false;
             this.buttonSubmitGuess.Click += new System.EventHandler(this.buttonSubmitGuess_Click);
             // 
             // lblPlayerOneGuess
             // 
             this.lblPlayerOneGuess.AutoSize = true;
-            this.lblPlayerOneGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerOneGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerOneGuess.Location = new System.Drawing.Point(42, 290);
             this.lblPlayerOneGuess.Name = "lblPlayerOneGuess";
-            this.lblPlayerOneGuess.Size = new System.Drawing.Size(108, 20);
+            this.lblPlayerOneGuess.Size = new System.Drawing.Size(126, 24);
             this.lblPlayerOneGuess.TabIndex = 10;
             this.lblPlayerOneGuess.Text = "Player1Guess";
             // 
             // lblPlayerTwoGuess
             // 
             this.lblPlayerTwoGuess.AutoSize = true;
-            this.lblPlayerTwoGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerTwoGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerTwoGuess.Location = new System.Drawing.Point(156, 290);
             this.lblPlayerTwoGuess.Name = "lblPlayerTwoGuess";
-            this.lblPlayerTwoGuess.Size = new System.Drawing.Size(108, 20);
+            this.lblPlayerTwoGuess.Size = new System.Drawing.Size(126, 24);
             this.lblPlayerTwoGuess.TabIndex = 11;
             this.lblPlayerTwoGuess.Text = "Player2Guess";
             // 
             // lblPlayerThreeGuess
             // 
             this.lblPlayerThreeGuess.AutoSize = true;
-            this.lblPlayerThreeGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerThreeGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerThreeGuess.Location = new System.Drawing.Point(290, 290);
             this.lblPlayerThreeGuess.Name = "lblPlayerThreeGuess";
-            this.lblPlayerThreeGuess.Size = new System.Drawing.Size(108, 20);
+            this.lblPlayerThreeGuess.Size = new System.Drawing.Size(126, 24);
             this.lblPlayerThreeGuess.TabIndex = 12;
             this.lblPlayerThreeGuess.Text = "Player3Guess";
             // 
             // LblPlayerFourGuess
             // 
             this.LblPlayerFourGuess.AutoSize = true;
-            this.LblPlayerFourGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblPlayerFourGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblPlayerFourGuess.Location = new System.Drawing.Point(414, 290);
             this.LblPlayerFourGuess.Name = "LblPlayerFourGuess";
-            this.LblPlayerFourGuess.Size = new System.Drawing.Size(108, 20);
+            this.LblPlayerFourGuess.Size = new System.Drawing.Size(126, 24);
             this.LblPlayerFourGuess.TabIndex = 13;
             this.LblPlayerFourGuess.Text = "Player4Guess";
             // 
@@ -224,11 +225,11 @@
             // lblRound
             // 
             this.lblRound.AutoSize = true;
-            this.lblRound.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRound.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRound.Location = new System.Drawing.Point(212, 31);
             this.lblRound.MinimumSize = new System.Drawing.Size(80, 30);
             this.lblRound.Name = "lblRound";
-            this.lblRound.Size = new System.Drawing.Size(80, 30);
+            this.lblRound.Size = new System.Drawing.Size(110, 30);
             this.lblRound.TabIndex = 19;
             this.lblRound.Text = "ROUND: X";
             // 
@@ -247,7 +248,7 @@
             this.PanelGameStart.Controls.Add(this.tBServerIP);
             this.PanelGameStart.Location = new System.Drawing.Point(11, 13);
             this.PanelGameStart.Name = "PanelGameStart";
-            this.PanelGameStart.Size = new System.Drawing.Size(513, 460);
+            this.PanelGameStart.Size = new System.Drawing.Size(524, 460);
             this.PanelGameStart.TabIndex = 20;
             // 
             // lbPlayerOverLB
@@ -262,12 +263,13 @@
             // 
             // btnReadyForGame
             // 
+            this.btnReadyForGame.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnReadyForGame.Location = new System.Drawing.Point(400, 415);
             this.btnReadyForGame.Name = "btnReadyForGame";
             this.btnReadyForGame.Size = new System.Drawing.Size(75, 23);
             this.btnReadyForGame.TabIndex = 9;
             this.btnReadyForGame.Text = "Ready";
-            this.btnReadyForGame.UseVisualStyleBackColor = true;
+            this.btnReadyForGame.UseVisualStyleBackColor = false;
             this.btnReadyForGame.Click += new System.EventHandler(this.btnReadyForGame_Click);
             // 
             // PlayerListBox
@@ -280,12 +282,13 @@
             // 
             // buttonJoin
             // 
+            this.buttonJoin.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.buttonJoin.Location = new System.Drawing.Point(204, 192);
             this.buttonJoin.Name = "buttonJoin";
             this.buttonJoin.Size = new System.Drawing.Size(75, 23);
             this.buttonJoin.TabIndex = 7;
             this.buttonJoin.Text = "Join game";
-            this.buttonJoin.UseVisualStyleBackColor = true;
+            this.buttonJoin.UseVisualStyleBackColor = false;
             this.buttonJoin.Click += new System.EventHandler(this.buttonJoin_Click);
             // 
             // Logo
@@ -364,6 +367,7 @@
             this.AcceptButton = this.buttonSubmitGuess;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(536, 523);
             this.Controls.Add(this.PanelGameStart);
             this.Controls.Add(this.lblRound);
