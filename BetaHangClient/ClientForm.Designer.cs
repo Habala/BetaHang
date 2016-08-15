@@ -301,27 +301,30 @@
             // lbPassword
             // 
             this.lbPassword.AutoSize = true;
+            this.lbPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPassword.Location = new System.Drawing.Point(35, 120);
             this.lbPassword.Name = "lbPassword";
-            this.lbPassword.Size = new System.Drawing.Size(53, 13);
+            this.lbPassword.Size = new System.Drawing.Size(61, 13);
             this.lbPassword.TabIndex = 5;
             this.lbPassword.Text = "Password";
             // 
             // lbServer
             // 
             this.lbServer.AutoSize = true;
+            this.lbServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbServer.Location = new System.Drawing.Point(35, 71);
             this.lbServer.Name = "lbServer";
-            this.lbServer.Size = new System.Drawing.Size(38, 13);
+            this.lbServer.Size = new System.Drawing.Size(44, 13);
             this.lbServer.TabIndex = 4;
             this.lbServer.Text = "Server";
             // 
             // lbUserName
             // 
             this.lbUserName.AutoSize = true;
+            this.lbUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbUserName.Location = new System.Drawing.Point(35, 176);
             this.lbUserName.Name = "lbUserName";
-            this.lbUserName.Size = new System.Drawing.Size(55, 13);
+            this.lbUserName.Size = new System.Drawing.Size(63, 13);
             this.lbUserName.TabIndex = 3;
             this.lbUserName.Text = "Username";
             // 
@@ -349,10 +352,10 @@
             // lblCountDown
             // 
             this.lblCountDown.AutoSize = true;
-            this.lblCountDown.Font = new System.Drawing.Font("Gill Sans Nova Cond", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCountDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCountDown.Location = new System.Drawing.Point(455, 9);
             this.lblCountDown.Name = "lblCountDown";
-            this.lblCountDown.Size = new System.Drawing.Size(69, 62);
+            this.lblCountDown.Size = new System.Drawing.Size(80, 55);
             this.lblCountDown.TabIndex = 22;
             this.lblCountDown.Text = "77";
             // 
@@ -383,7 +386,7 @@
             this.Controls.Add(this.lblCountDown);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ClientForm";
-            this.Text = "Client";
+            this.Text = "BetaHang";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.PanelGameStart.ResumeLayout(false);
             this.PanelGameStart.PerformLayout();
