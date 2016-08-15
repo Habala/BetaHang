@@ -17,8 +17,9 @@ namespace BetaHangServer
     public partial class ServerForm : Form
     {
         private Server server;
-        private Thread serverThread;
-        public Game myGame;
+        //private Thread serverThread;
+        //public Game pendingGame;
+        //private List<Game> runningGames;
         public ServerForm()
         {
             InitializeComponent();
@@ -39,14 +40,15 @@ namespace BetaHangServer
             textBoxServerIP.Enabled = false;
             #endregion
 
-            myGame = new Game();
-            myGame.onHiddenWordChange += DisplayHiddenWord;
-            myGame.onMessageReceived += DisplayReceivedMessage;
-            myGame.onMessageSent += DisplaySentMessages;
+            //pendingGame = new Game();
+            //pendingGame.onHiddenWordChange += DisplayHiddenWord;
+            //pendingGame.onMessageReceived += DisplayReceivedMessage;
+            //pendingGame.onMessageSent += DisplaySentMessages;
 
-            server = new Server(myGame);
+            server = new Server();
             server.onMessageReceived += DisplayReceivedMessage;
             server.onMessageSent += DisplaySentMessages;
+            server.onHiddenWordChange += DisplayHiddenWord;
             server.Start();
 
 
@@ -114,7 +116,7 @@ namespace BetaHangServer
 
         private void ServerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            myGame.RequestShutdown();
+            //pendingGame.RequestShutdown();
             server.RequestShutdown();
         }
     }

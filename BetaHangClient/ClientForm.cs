@@ -84,6 +84,7 @@ namespace BetaHangClient
                     var playerGuess = "";
                     var playerPoints = "";
                     var playerScoreChange = "";
+                    int scoreChange = 0;
                     var playerReady = "";
 
 
@@ -93,10 +94,14 @@ namespace BetaHangClient
                         playerName = state.Players[i].Name;
                         playerGuess = state.Players[i].Guess;
                         playerPoints = state.Players[i].Score.ToString();
-                        int change = state.Players[i].ScoreChange;
-                        if (change > 0)
+                        scoreChange = state.Players[i].ScoreChange;
+                        if (scoreChange > 0)
                         {
-                            playerScoreChange = $"(+{change})";
+                            playerScoreChange = $"(+{scoreChange})";
+                        }
+                        else if (scoreChange < 0)
+                        {
+                            playerScoreChange = $"({scoreChange})";
                         }
                         else
                         {
@@ -113,28 +118,28 @@ namespace BetaHangClient
                             setBold(player1Label, playerPoints == playerMaxScore);
                             player1Label.Text = playerName;
                             lblPlayerOneGuess.Text = playerGuess;
-                            setPointColour(lblPlayerOnePoints, playerScoreChange != string.Empty);
+                            setPointColour(lblPlayerOnePoints, scoreChange);
                             lblPlayerOnePoints.Text = playerPoints + " " + playerScoreChange;
                             break;
                         case 1:
                             setBold(player2Label, playerPoints == playerMaxScore);
                             player2Label.Text = playerName;
                             lblPlayerTwoGuess.Text = playerGuess;
-                            setPointColour(lblPlayerTwoPoints, playerScoreChange != string.Empty);
+                            setPointColour(lblPlayerTwoPoints, scoreChange);
                             lblPlayerTwoPoints.Text = playerPoints + " " + playerScoreChange;
                             break;
                         case 2:
                             setBold(player3Label, playerPoints == playerMaxScore);
                             player3Label.Text = playerName;
                             lblPlayerThreeGuess.Text = playerGuess;
-                            setPointColour(lblPlayerThreePoints, playerScoreChange != string.Empty);
+                            setPointColour(lblPlayerThreePoints, scoreChange);
                             lblPlayerThreePoints.Text = playerPoints + " " + playerScoreChange;
                             break;
                         case 3:
                             setBold(player4Label, playerPoints == playerMaxScore);
                             player4Label.Text = playerName;
                             LblPlayerFourGuess.Text = playerGuess;
-                            setPointColour(lblPlayerFourPoints, playerScoreChange != string.Empty);
+                            setPointColour(lblPlayerFourPoints, scoreChange);
                             lblPlayerFourPoints.Text = playerPoints + " " + playerScoreChange;
 
                             break;
@@ -173,11 +178,15 @@ namespace BetaHangClient
 
         }
 
-        private void setPointColour(Label lbl, bool b)
+        private void setPointColour(Label lbl, int i)
         {
-            if (b)
+            if (i>0)
             {
                 lbl.ForeColor = System.Drawing.Color.Green;
+            }
+            else if (i < 0)
+            {
+                lbl.ForeColor = System.Drawing.Color.DarkRed;
             }
             else
             {

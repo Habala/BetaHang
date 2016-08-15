@@ -101,7 +101,7 @@ namespace BetaHangServer
                 displayword = (secretword.ToArray()
                   .Select(c => '*').ToArray());
                 BroadCast(new BHangMessage { Command = MessageCommand.displayWord, Value = new string(displayword) });
-                onHiddenWordChange(secretword);
+                onHiddenWordChange?.Invoke(secretword);
                 //entire game
                 while (secretword != new string(displayword) && !shutdownRequested)
                 {

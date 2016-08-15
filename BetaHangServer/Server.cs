@@ -15,8 +15,8 @@ namespace BetaHangServer
     class Server
     {
         List<ClientHandler> ServerClients = new List<ClientHandler>();
-        internal event Action<ClientHandler, BHangMessage> onMessageReceived;
-        private Game myGame;
+        private Game pendingGame;
+        private List<Game> runningGames = new List<Game>();
         //Hack: to force threads to shut down, might be better to have each client handle their threads
         //List<Thread> listenerThreads = new List<Thread>();
         bool shutdown = false;
@@ -24,7 +24,10 @@ namespace BetaHangServer
         internal string serverPass = "";
         private Thread serverListenerThread;
         TcpListener listener;
+
         internal event Action<BHangMessage,ClientHandler> onMessageSent;
+        internal event Action<ClientHandler, BHangMessage> onMessageReceived;
+        internal event Action<string> onHiddenWordChange;
 
         public void RequestShutdown()
         {
@@ -35,10 +38,17 @@ namespace BetaHangServer
             }
             ServerClients = null;
             listener?.Stop();
+            pendingGame.RequestShutdown();
+            foreach (var item in runningGames)
+            {
+                item.RequestShutdown();
+            }
         }
-        public Server(Game myGame)
+        public Server()
         {
-            this.myGame = myGame;
+            pendingGame = new Game();
+            pendingGame.onMessageReceived += MessageHandler;
+            //todo: handle sent messages and hidden word change
         }
 
         internal void Start()
@@ -109,15 +119,26 @@ namespace BetaHangServer
         //}
         private void MessageHandler(ClientHandler sender, BHangMessage message)
         {
+            if (pendingGame == null)
+                pendingGame = new Game();
+            if(pendingGame.InGame || pendingGame.Clients.Count >= pendingGame.MaxPlayers)
+            {
+                runningGames.Add(pendingGame);
+                pendingGame = new Game();
+                pendingGame.onMessageReceived += MessageHandler;
+                //todo: handle sent messages and hidden word change
+            }
+            //Todo: check all running games and remove any that have finished.
+
             try
             {
 
                 sender.playerId = message.ExtraValues[0];
 
                 bool added = false;
-                if (myGame != null && serverPass == message.Value)
+                if (pendingGame != null && serverPass == message.Value)
                 {
-                    added = myGame.AddPlayer(sender);
+                    added = pendingGame.AddPlayer(sender);
 
                 }
                 else if (serverPass != message.Value)
