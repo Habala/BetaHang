@@ -112,31 +112,37 @@ namespace BetaHangServer
                         Thread.Sleep(1000);
                         //broadcast 10-waited s left
                         waited--;
- 
+
                     }
                     var oldDisplayWord = (char[])displayword.Clone();
                     foreach (var client in Clients)
                     {
                         var guess = client.guess?.ToUpper();
-                        int correct = 0;
+                        int guessScore = 0;
                         if (guess != null && guess.Length == 1)
                         {
+                            char guessChar = guess[0];
                             for (int i = 0; i < secretword.Length; i++)
                             {
-                                if (oldDisplayWord[i] == '*' && guess[0] == secretword[i])
+                                if (oldDisplayWord[i] == '*' && guessChar == secretword[i])
                                 {
                                     displayword[i] = secretword[i];
-                                    correct++;
+                                    guessScore += CharacterPoints.ContainsKey(guessChar) ? CharacterPoints[guessChar] : 1;
                                 }
                             }
                         }
                         else if (guess == secretword)
                         {
-                            correct = oldDisplayWord.Where(c => c == '*').Count();
+                            for (int i = 0; i < secretword.Length; i++)
+                            {
+                                var guessChar = secretword[i];
+                                if(oldDisplayWord[i] =='*')
+                                    guessScore += guessScore += CharacterPoints.ContainsKey(guessChar) ? CharacterPoints[guessChar] : 1;
+                            }
                             displayword = secretword.ToArray();
                         }
 
-                        client.score += correct;
+                        client.score += guessScore > 0 ? guessScore : -1;
                         BroadCast(new BHangMessage { Command = MessageCommand.score, Value = client.playerId, ExtraValues = new string[] { client.score.ToString() } });
                         BroadCast(new BHangMessage { Command = MessageCommand.guess, Value = client.playerId, ExtraValues = new string[] { client.guess } });
                         client.guess = "";
@@ -254,7 +260,7 @@ namespace BetaHangServer
             {
                 Logger.Error(ex.Message + ex.TargetSite);
             }
-            onMessageSent?.Invoke(message,null);
+            onMessageSent?.Invoke(message, null);
         }
 
 
