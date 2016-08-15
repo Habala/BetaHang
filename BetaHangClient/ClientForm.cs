@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace BetaHangClient
 {
@@ -136,11 +137,11 @@ namespace BetaHangClient
         {
             if (b)
             {
-                lbl.ForeColor = Color.Green;
+                lbl.ForeColor = System.Drawing.Color.Green;
             }
             else
             {
-                lbl.ForeColor = Color.Black;
+                lbl.ForeColor = System.Drawing.Color.Black;
             }
         }
 
@@ -229,6 +230,10 @@ namespace BetaHangClient
 
                 try
                 {
+                    MediaPlayer mediaPlayer = new MediaPlayer();
+                    var p1 = new MediaPlayer();
+                    p1.Open(new Uri(@"C:\Projects\BetaHang\BetaHang\BetaHangClient\Tunes\BetaHang_Tic1.wav"));
+                    p1.Play();
                     SoundPlayer sound = new SoundPlayer($@"{c}");
                     sound.PlayLooping();
                     musicStarted = true;
