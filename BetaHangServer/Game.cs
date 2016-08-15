@@ -24,7 +24,7 @@ namespace BetaHangServer
         private Thread myThread;
         private bool shutdownRequested = false;
         Random rnd = new Random();
-        public void RequestQuit()
+        public void RequestShutdown()
         {
             shutdownRequested = true;
         }
@@ -127,6 +127,10 @@ namespace BetaHangServer
 
             //end game and display final points...
             BroadCast(new BHangMessage { Command = MessageCommand.endGame, Value = "Exit requested..." });
+            foreach (var client in Clients)
+            {
+                client.RequestShutdown();
+            }
         }
 
 

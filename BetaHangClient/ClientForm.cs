@@ -158,6 +158,7 @@ namespace BetaHangClient
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (myClient != null)
             myClient.RequestShutdown();
             if (sound != null)
             {

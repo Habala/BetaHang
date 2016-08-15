@@ -43,8 +43,8 @@ namespace BetaHangServer
             myGame.echoMessageToForm = messageHandler;
             server = new Server(myGame);
             server.messageHandler = messageHandler;
-            serverThread = new Thread(server.Run);
-            serverThread.Start();
+            server.Start();
+
 
             var rnd = new Random();
             server.serverPass = "abc" + rnd.Next(10000);
@@ -71,7 +71,7 @@ namespace BetaHangServer
 
         private void ServerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            myGame.RequestQuit();
+            myGame.RequestShutdown();
             server.RequestShutdown();
         }
     }

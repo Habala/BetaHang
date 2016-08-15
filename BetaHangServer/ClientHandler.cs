@@ -65,5 +65,9 @@ namespace BetaHangServer
             }
         }
 
+        internal void RequestShutdown()
+        {
+            //todo: Close tcpclient and listenerthread.
+        }
     }
 }

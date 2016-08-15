@@ -291,10 +291,10 @@
             // Logo
             // 
             this.Logo.AutoSize = true;
-            this.Logo.Font = new System.Drawing.Font("Gill Sans Ultra Bold Condensed", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Logo.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Logo.Location = new System.Drawing.Point(175, 18);
             this.Logo.Name = "Logo";
-            this.Logo.Size = new System.Drawing.Size(176, 49);
+            this.Logo.Size = new System.Drawing.Size(185, 42);
             this.Logo.TabIndex = 6;
             this.Logo.Text = "BetaHang";
             // 
@@ -330,14 +330,14 @@
             this.tBPassword.Location = new System.Drawing.Point(38, 136);
             this.tBPassword.Name = "tBPassword";
             this.tBPassword.Size = new System.Drawing.Size(147, 20);
-            this.tBPassword.TabIndex = 2;
+            this.tBPassword.TabIndex = 1;
             // 
             // tBUserName
             // 
             this.tBUserName.Location = new System.Drawing.Point(38, 192);
             this.tBUserName.Name = "tBUserName";
             this.tBUserName.Size = new System.Drawing.Size(147, 20);
-            this.tBUserName.TabIndex = 1;
+            this.tBUserName.TabIndex = 2;
             // 
             // tBServerIP
             // 

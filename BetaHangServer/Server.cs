@@ -14,27 +14,36 @@ namespace BetaHangServer
 {
     class Server
     {
-        List<ClientHandler> clients = new List<ClientHandler>();
+        List<ClientHandler> ServerClients = new List<ClientHandler>();
         internal Action<ClientHandler, BHangMessage> messageHandler;
         private Game myGame;
         //Hack: to force threads to shut down, might be better to have each client handle their threads
-        List<Thread> listenerThreads = new List<Thread>();
+        //List<Thread> listenerThreads = new List<Thread>();
         bool shutdown = false;
-        List<TcpListener> listeners = new List<TcpListener>();
+        //List<TcpListener> listeners = new List<TcpListener>();
         internal string serverPass = "";
+        private Thread serverListenerThread;
+        TcpListener listener;
 
         public void RequestShutdown()
         {
             shutdown = true;
-            foreach (var item in listeners)
+            foreach (var item in ServerClients)
             {
-                item?.Stop();
+                item?.RequestShutdown();
             }
-            listeners = null;
+            ServerClients = null;
+            listener?.Stop();
         }
         public Server(Game myGame)
         {
             this.myGame = myGame;
+        }
+
+        internal void Start()
+        {
+            serverListenerThread = new Thread(Run);
+            serverListenerThread.Start();
         }
 
         public void Run()
@@ -42,9 +51,9 @@ namespace BetaHangServer
 
             //Console.WriteLine($"IP: {localIP}");
 
-            TcpListener listener = new TcpListener(IPAddress.Any, 5000);
+            listener = new TcpListener(IPAddress.Any, 5000);
             //Console.WriteLine("Server up and running, waiting for messages...");
-            listeners.Add(listener);
+            //listeners.Add(listener);
             try
             {
                 listener.Start();
@@ -53,14 +62,14 @@ namespace BetaHangServer
                 {
                     TcpClient c = listener.AcceptTcpClient();
                     ClientHandler newClient = new ClientHandler(c /*, this.messageHandler*/);
-                    clients.Add(newClient);
+                    ServerClients.Add(newClient);
                     newClient.onMessage += MessageHandler;
 
 
                     Thread clientThread = new Thread(newClient.Listener);
                     clientThread.Start();
                     //todo: next line might not be needed, part of attempts to get good shutdowns
-                    listenerThreads.Add(clientThread);
+                    //listenerThreads.Add(clientThread);
 
 
                 }
@@ -77,11 +86,12 @@ namespace BetaHangServer
         }
 
 
+
         public void Broadcast(string message)
         {
             try
             {
-                foreach (ClientHandler tmpClient in clients)
+                foreach (ClientHandler tmpClient in ServerClients)
                 {
 
                     NetworkStream n = tmpClient.tcpClient.GetStream();
@@ -108,11 +118,7 @@ namespace BetaHangServer
                 if (myGame != null && serverPass == message.Value)
                 {
                     added = myGame.AddPlayer(sender);
-                    clients.Remove(sender);
-                    if (!added)
-                    {
-                        sender.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Game refused you, you inferior creature!" });
-                    }
+
                 }
                 else if (serverPass != message.Value)
                 {
@@ -121,6 +127,14 @@ namespace BetaHangServer
                 else
                 {
                     sender.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Game does not exist!" });
+                }
+                if (added)
+                    ServerClients.Remove(sender);
+                if (!added)
+                {
+                    sender.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Game refused you, you inferior creature!" });
+                    ServerClients.Remove(sender);
+                    sender.RequestShutdown();
                 }
             }
             catch (Exception ex)

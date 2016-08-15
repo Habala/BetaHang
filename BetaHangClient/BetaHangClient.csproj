@@ -92,6 +92,9 @@
     <Content Include="Tunes\BetaHang.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Tunes\BetaHang_Tic1.wav" />
+    <Content Include="Tunes\BetaHang_Tic2.wav" />
+    <Content Include="Tunes\BetaHang_Tic3.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
