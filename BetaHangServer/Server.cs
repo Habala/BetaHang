@@ -15,7 +15,7 @@ namespace BetaHangServer
     class Server
     {
         List<ClientHandler> ServerClients = new List<ClientHandler>();
-        internal Action<ClientHandler, BHangMessage> messageHandler;
+        internal event Action<ClientHandler, BHangMessage> onMessageReceived;
         private Game myGame;
         //Hack: to force threads to shut down, might be better to have each client handle their threads
         //List<Thread> listenerThreads = new List<Thread>();
@@ -24,6 +24,7 @@ namespace BetaHangServer
         internal string serverPass = "";
         private Thread serverListenerThread;
         TcpListener listener;
+        internal event Action<BHangMessage,ClientHandler> onMessageSent;
 
         public void RequestShutdown()
         {
@@ -87,26 +88,25 @@ namespace BetaHangServer
 
 
 
-        public void Broadcast(string message)
-        {
-            try
-            {
-                foreach (ClientHandler tmpClient in ServerClients)
-                {
+        //public void Broadcast(string message)
+        //{
+        //    try
+        //    {
+        //        foreach (ClientHandler tmpClient in ServerClients)
+        //        {
 
-                    NetworkStream n = tmpClient.tcpClient.GetStream();
-                    BinaryWriter w = new BinaryWriter(n);
-                    w.Write(message);
-                    w.Flush();
+        //            NetworkStream n = tmpClient.tcpClient.GetStream();
+        //            BinaryWriter w = new BinaryWriter(n);
+        //            w.Write(message);
+        //            w.Flush();
 
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message + " " + ex.TargetSite);
-            }
-
-        }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.Error(ex.Message + " " + ex.TargetSite);
+        //    }
+        //}
         private void MessageHandler(ClientHandler sender, BHangMessage message)
         {
             try
@@ -122,17 +122,23 @@ namespace BetaHangServer
                 }
                 else if (serverPass != message.Value)
                 {
-                    sender.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Invalid password!" });
+                    var msg = new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Invalid password!" };
+                    sender.Send(msg);
+                    onMessageSent?.Invoke(msg, sender);
                 }
                 else
                 {
-                    sender.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Game does not exist!" });
+                    var msg = new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Game does not exist!" };
+                    sender.Send(msg);
+                    onMessageSent(msg, sender);
                 }
                 if (added)
                     ServerClients.Remove(sender);
                 if (!added)
                 {
-                    sender.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Game refused you, you inferior creature!" });
+                    var msg = new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Game refused you, you inferior creature!" };
+                    sender.Send(msg);
+                    onMessageSent(msg, sender);
                     ServerClients.Remove(sender);
                     sender.RequestShutdown();
                 }
@@ -142,6 +148,7 @@ namespace BetaHangServer
 
                 Logger.Error(ex.Message + " " + ex.TargetSite);
             }
+            onMessageReceived?.Invoke(sender, message);
         }
     }
 }

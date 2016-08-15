@@ -19,11 +19,15 @@ namespace BetaHangServer
         string secretword = "testa";
         public bool InGame = false;
         public int MaxPlayers = 4;
-        internal Action<ClientHandler, BHangMessage> echoMessageToForm;
+        internal event Action<string> onHiddenWordChange;
         private char[] displayword = "somethingElse".ToArray();
         private Thread myThread;
         private bool shutdownRequested = false;
         Random rnd = new Random();
+        internal event Action<BHangMessage, ClientHandler> onMessageSent;
+
+        internal event Action<ClientHandler, BHangMessage> onMessageReceived;
+
         public void RequestShutdown()
         {
             shutdownRequested = true;
@@ -61,7 +65,7 @@ namespace BetaHangServer
                 displayword = (secretword.ToArray()
                   .Select(c => '*').ToArray());
                 BroadCast(new BHangMessage { Command = MessageCommand.displayWord, Value = new string(displayword) });
-                echoMessageToForm(null, new BHangMessage { Command = MessageCommand.none, Value = secretword });
+                onHiddenWordChange(secretword);
                 //entire game
                 while (secretword != new string(displayword) && !shutdownRequested)
                 {
@@ -154,7 +158,9 @@ namespace BetaHangServer
                 return false;
             if (newClient.playerId.Trim() == string.Empty)
             {
-                newClient.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Do you even username? brah!" });
+                var msg = new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Do you even username? brah!" };
+                newClient.Send(msg);
+                onMessageSent?.Invoke(msg, newClient);
                 return false;
             }
 
@@ -163,15 +169,21 @@ namespace BetaHangServer
             {
                 if (Clients.Where(c => c.playerId == newClient.playerId).Count() > 0)
                 {
-                    newClient.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Oh such an unoriginal username.." });
+                    var msg = new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Oh such an unoriginal username.." };
+                    newClient.Send(msg);
+                    onMessageSent?.Invoke(msg, newClient);
                 }
                 else if (Clients.Count >= MaxPlayers)
                 {
-                    newClient.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Early bird gets the worm. And you ain't no bird.....brah (Game is full)" });
+                    var msg = new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Early bird gets the worm. And you ain't no bird.....brah (Game is full)" };
+                    newClient.Send(msg);
+                    onMessageSent?.Invoke(msg, newClient);
                 }
                 else if (InGame)
                 {
-                    newClient.Send(new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "You snooze, you lose (Game has already started)" });
+                    var msg = new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "You snooze, you lose (Game has already started)" };
+                    newClient.Send(msg);
+                    onMessageSent?.Invoke(msg, newClient);
                 }
                 else
                 {
@@ -211,6 +223,7 @@ namespace BetaHangServer
             {
                 Logger.Error(ex.Message + ex.TargetSite);
             }
+            onMessageSent?.Invoke(message,null);
         }
 
 
@@ -250,9 +263,8 @@ namespace BetaHangServer
             {
                 Logger.Error(ex.Message + " " + ex.TargetSite);
             }
-            //do game stuff
-            var newMsg = new BHangMessage { Value = log };
-            echoMessageToForm(null, newMsg);
+
+            onMessageReceived?.Invoke(sender, msg);
         }
     }
 }
