@@ -13,6 +13,13 @@ namespace BetaHang
         private static object _errorLock = new object();
         private static string logFile = "log.txt";
         private static string errorFile = "error.txt";
+
+        static Logger()
+        {
+            File.WriteAllText(logFile, $"Log file created {DateTime.Now} \n");
+            File.WriteAllText(errorFile, $"Error log created {DateTime.Now} \n");
+        }
+
         public static void Log(string logText)
         {
             var time = System.DateTime.Now;
@@ -35,7 +42,7 @@ namespace BetaHang
                 foreach (var item in message.ExtraValues)
                 {
                     if (item != null)
-                    builder.Append(" " + item);
+                        builder.Append(" " + item);
                 }
             Log(builder.ToString());
         }
