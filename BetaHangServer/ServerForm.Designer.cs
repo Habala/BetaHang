@@ -28,19 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.serverDisplayBox = new System.Windows.Forms.TextBox();
+            this.HiddenWordBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxServerIP = new System.Windows.Forms.TextBox();
             this.textBoxServerPW = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.listBoxSentMessages = new System.Windows.Forms.ListBox();
+            this.listBoxReceivedMessages = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // textBox1
+            // serverDisplayBox
             // 
-            this.serverDisplayBox.Location = new System.Drawing.Point(128, 192);
-            this.serverDisplayBox.Name = "textBox1";
-            this.serverDisplayBox.Size = new System.Drawing.Size(385, 22);
-            this.serverDisplayBox.TabIndex = 1;
+            this.HiddenWordBox.Location = new System.Drawing.Point(128, 146);
+            this.HiddenWordBox.Name = "serverDisplayBox";
+            this.HiddenWordBox.Size = new System.Drawing.Size(385, 22);
+            this.HiddenWordBox.TabIndex = 1;
             // 
             // label1
             // 
@@ -74,16 +76,36 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Server Password";
             // 
+            // listBoxSentMessages
+            // 
+            this.listBoxSentMessages.FormattingEnabled = true;
+            this.listBoxSentMessages.ItemHeight = 16;
+            this.listBoxSentMessages.Location = new System.Drawing.Point(68, 242);
+            this.listBoxSentMessages.Name = "listBoxSentMessages";
+            this.listBoxSentMessages.Size = new System.Drawing.Size(256, 372);
+            this.listBoxSentMessages.TabIndex = 6;
+            // 
+            // listBoxReceivedMessages
+            // 
+            this.listBoxReceivedMessages.FormattingEnabled = true;
+            this.listBoxReceivedMessages.ItemHeight = 16;
+            this.listBoxReceivedMessages.Location = new System.Drawing.Point(351, 242);
+            this.listBoxReceivedMessages.Name = "listBoxReceivedMessages";
+            this.listBoxReceivedMessages.Size = new System.Drawing.Size(260, 372);
+            this.listBoxReceivedMessages.TabIndex = 7;
+            // 
             // ServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 642);
+            this.Controls.Add(this.listBoxReceivedMessages);
+            this.Controls.Add(this.listBoxSentMessages);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxServerPW);
             this.Controls.Add(this.textBoxServerIP);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.serverDisplayBox);
+            this.Controls.Add(this.HiddenWordBox);
             this.Name = "ServerForm";
             this.Text = "Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ServerForm_FormClosing);
@@ -94,11 +116,13 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox serverDisplayBox;
+        private System.Windows.Forms.TextBox HiddenWordBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxServerIP;
         private System.Windows.Forms.TextBox textBoxServerPW;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox listBoxSentMessages;
+        private System.Windows.Forms.ListBox listBoxReceivedMessages;
     }
 }
 

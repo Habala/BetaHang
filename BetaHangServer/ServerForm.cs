@@ -40,9 +40,13 @@ namespace BetaHangServer
             #endregion
 
             myGame = new Game();
-            myGame.echoMessageToForm = messageHandler;
+            myGame.onHiddenWordChange += DisplayHiddenWord;
+            myGame.onMessageReceived += DisplayReceivedMessage;
+            myGame.onMessageSent += DisplaySentMessages;
+
             server = new Server(myGame);
-            server.messageHandler = messageHandler;
+            server.onMessageReceived += DisplayReceivedMessage;
+            server.onMessageSent += DisplaySentMessages;
             server.Start();
 
 
@@ -57,15 +61,54 @@ namespace BetaHangServer
 
         }
 
-        private void messageHandler(ClientHandler sender, BHangMessage message)
+        private void DisplayHiddenWord(string hiddenWord)
         {
-            try
+            HiddenWordBox.Text = hiddenWord;
+        }
+        private void DisplayReceivedMessage(ClientHandler sender, BHangMessage message)
+        {
+            string msgStr = sender.playerId;
+            if (message.Value != null)
             {
-                serverDisplayBox.Text = message.Value;
+                msgStr += " says: ";
+                msgStr += message.Value;
             }
-            catch (Exception ex)
+            msgStr += message.Command;
+            if (message.ExtraValues != null)
+                foreach (var item in message.ExtraValues)
+                {
+                    msgStr += " " + item;
+                }
+
+            lock (listBoxReceivedMessages)
             {
-                Logger.Error(ex.Message + " " + ex.TargetSite);
+                listBoxReceivedMessages.Items.Insert(0, msgStr);
+            }
+        }
+
+        private void DisplaySentMessages(BHangMessage message, ClientHandler receiver = null)
+        {
+            string msgStr = "";
+            if (receiver != null)
+                msgStr += receiver.playerId;
+            else
+                msgStr += "Broadcast";
+            msgStr += " " + message.Command;
+
+            if (message.Value != null)
+            {
+                msgStr += " : ";
+                msgStr += message.Value;
+            }
+            if (message.ExtraValues != null)
+                foreach (var item in message.ExtraValues)
+                {
+                    msgStr += " " + item;
+                }
+
+            lock (listBoxSentMessages)
+            {
+                listBoxSentMessages.Items.Insert(0,msgStr);
             }
         }
 
