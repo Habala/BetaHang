@@ -20,7 +20,7 @@ namespace BetaHangClient
     {
         private Client myClient;
         private Gamestate gameState;
-        SoundPlayer sound;
+        SoundPlayer backgroundMusic;
         bool musicStarted;
 
 
@@ -44,6 +44,9 @@ namespace BetaHangClient
             gameState.onStateChange += GameStateUpdate;
             gameState.onConnectionRefused += HandleConnectionRefused;
             gameState.onHasEnded += HandleGameOver;
+
+            musicStarted = false;
+            backgroundMusic?.Stop();
             MessageBox.Show("Game is over, brah brah!");
             PanelGameStart.Show();
             buttonJoin.Enabled = true;
@@ -113,7 +116,7 @@ namespace BetaHangClient
 
                     PlayerListBox.Items.Add(playerName + " " + playerReady);
                     switch (i)
-                    {  
+                    {
                         case 0:
                             setBold(player1Label, playerPoints == playerMaxScore);
                             player1Label.Text = playerName;
@@ -149,7 +152,7 @@ namespace BetaHangClient
                 }
             if (lblCountDown.Text != state.timeLeft.ToString())
             {
-                switch (state.timeLeft)     
+                switch (state.timeLeft)
                 {
                     case 3:
                         string fileName = "BetaHang_Tic3.wav";
@@ -180,7 +183,7 @@ namespace BetaHangClient
 
         private void setPointColour(Label lbl, int i)
         {
-            if (i>0)
+            if (i > 0)
             {
                 lbl.ForeColor = System.Drawing.Color.Green;
             }
@@ -209,10 +212,10 @@ namespace BetaHangClient
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (myClient != null)
-            myClient.RequestShutdown();
-            if (sound != null)
+                myClient.RequestShutdown();
+            if (backgroundMusic != null)
             {
-                sound.Stop();
+                backgroundMusic.Stop();
             }
         }
 
@@ -255,7 +258,7 @@ namespace BetaHangClient
                 myClient.onMessage += debugDisplay;
 
                 myClient.Start();
-                
+
                 myClient.Send(new BHangMessage { Command = MessageCommand.join, Value = serverPassword, ExtraValues = new string[] { UserName } });
             }
             catch (Exception ex)
@@ -264,7 +267,7 @@ namespace BetaHangClient
                 Logger.Error(ex.Message + " " + ex.TargetSite);
                 MessageBox.Show("Connection to server failed: " + ex.Message);
             }
-       
+
 
         }
         private void HandleConnectionRefused(BHangMessage message)
@@ -292,7 +295,7 @@ namespace BetaHangClient
             {
                 Logger.Error(ex.Message + "" + ex.TargetSite);
             }
-          
+
         }
         private void playSound(string c)
         {
@@ -301,8 +304,8 @@ namespace BetaHangClient
 
                 try
                 {
-                    SoundPlayer sound = new SoundPlayer($@"{c}");
-                    sound.PlayLooping();
+                    backgroundMusic = new SoundPlayer($@"{c}");
+                    backgroundMusic.PlayLooping();
                     musicStarted = true;
                 }
                 catch (Exception ex)
@@ -310,7 +313,7 @@ namespace BetaHangClient
                     Logger.Error(ex.Message + "" + ex.TargetSite);
                 }
             }
-            
+
         }
     }
 }
