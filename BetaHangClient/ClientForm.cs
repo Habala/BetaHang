@@ -30,7 +30,23 @@ namespace BetaHangClient
             CheckForIllegalCrossThreadCalls = false;
             gameState = new Gamestate();
             GameStateUpdate(gameState);
-            gameState.onStateChange = GameStateUpdate;
+            gameState.onStateChange += GameStateUpdate;
+            gameState.onConnectionRefused += HandleConnectionRefused;
+            gameState.onHasEnded += HandleGameOver;
+        }
+
+        private void HandleGameOver(Gamestate obj)
+        {
+            myClient.RequestShutdown();
+            gameState.onStateChange -= GameStateUpdate;
+            gameState = new Gamestate();
+            GameStateUpdate(gameState);
+            gameState.onStateChange += GameStateUpdate;
+            gameState.onConnectionRefused += HandleConnectionRefused;
+            gameState.onHasEnded += HandleGameOver;
+            MessageBox.Show("Game is over, brah brah!");
+            PanelGameStart.Show();
+            buttonJoin.Enabled = true;
         }
 
         private void debugDisplay(BHangMessage obj)
@@ -222,9 +238,9 @@ namespace BetaHangClient
             string serverPassword = tBPassword.Text;
             string UserName = tBUserName.Text;
 
+            buttonJoin.Enabled = false;
             try
             {
-
                 myClient = new Client(serverIP);
                 myClient.onMessage += gameState.ReceiveMessage;
                 myClient.onMessage += debugDisplay;
@@ -235,11 +251,17 @@ namespace BetaHangClient
             }
             catch (Exception ex)
             {
+                buttonJoin.Enabled = true;
                 Logger.Error(ex.Message + " " + ex.TargetSite);
                 MessageBox.Show("Connection to server failed: " + ex.Message);
             }
        
 
+        }
+        private void HandleConnectionRefused(BHangMessage message)
+        {
+            MessageBox.Show(message.Value);
+            buttonJoin.Enabled = true;
         }
 
         private void btnReadyForGame_Click(object sender, EventArgs e)

@@ -16,7 +16,6 @@ namespace BetaHangClient
         public int timeLeft { get; private set; }
         public bool HasEnded { get; set; }
         public bool HasBegun { get; set; }
-
         public int Round { get; set; }
         public int MaxScore
         {
@@ -38,7 +37,10 @@ namespace BetaHangClient
             }
         }
 
-        public Action<Gamestate> onStateChange;
+        public event Action<Gamestate> onStateChange;
+        public event Action<Gamestate> onHasEnded;
+
+        public event Action<BHangMessage> onConnectionRefused;
 
         public Gamestate()
         {
@@ -132,12 +134,14 @@ namespace BetaHangClient
                         break;
                     case MessageCommand.endGame:
                         HasEnded = true;
+                        onHasEnded?.Invoke(this);
                         break;
                     case MessageCommand.beginGame:
                         HasBegun = true;
                         break;
                     case MessageCommand.ConnectionRefused:
-                        MessageBox.Show(message.Value);
+                        //MessageBox.Show(message.Value);
+                        onConnectionRefused?.Invoke(message);
                         break;
 
                     case MessageCommand.none:

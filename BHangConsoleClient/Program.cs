@@ -14,7 +14,7 @@ namespace BHangConsoleClient
             //CheckForIllegalCrossThreadCalls = false;
             Gamestate gameState = new Gamestate();
             //GameStateUpdate(gameState);
-            gameState.onStateChange = DisplayState;
+            gameState.onStateChange += DisplayState;
             var myClient = new Client();
             myClient.onMessage += gameState.ReceiveMessage;
             //myClient.onMessage += debugDisplay;

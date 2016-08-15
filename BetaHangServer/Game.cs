@@ -137,7 +137,7 @@ namespace BetaHangServer
                             {
                                 var guessChar = secretword[i];
                                 if(oldDisplayWord[i] =='*')
-                                    guessScore += guessScore += CharacterPoints.ContainsKey(guessChar) ? CharacterPoints[guessChar] : 1;
+                                    guessScore += CharacterPoints.ContainsKey(guessChar) ? CharacterPoints[guessChar] : 1;
                             }
                             displayword = secretword.ToArray();
                         }
@@ -156,8 +156,6 @@ namespace BetaHangServer
                 BroadCast(new BHangMessage { Command = MessageCommand.RoundNr, Value = wordsPlayed.ToString() });
 
             }
-
-
 
             //end game and display final points...
             BroadCast(new BHangMessage { Command = MessageCommand.endGame, Value = "Exit requested..." });
