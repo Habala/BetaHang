@@ -14,6 +14,7 @@ namespace BetaHangServer
 {
     public class Game
     {
+        private static Dictionary<char, int> CharacterPoints;
         private object lockObject = new object();
         public List<ClientHandler> Clients = new List<ClientHandler>();
         string secretword = "testa";
@@ -24,6 +25,8 @@ namespace BetaHangServer
         private Thread myThread;
         private bool shutdownRequested = false;
         Random rnd = new Random();
+        private readonly int maxNameLength = 12;
+
         internal event Action<BHangMessage, ClientHandler> onMessageSent;
 
         internal event Action<ClientHandler, BHangMessage> onMessageReceived;
@@ -31,6 +34,39 @@ namespace BetaHangServer
         public void RequestShutdown()
         {
             shutdownRequested = true;
+        }
+        static Game()
+        {
+            CharacterPoints = new Dictionary<char, int>();
+            CharacterPoints.Add('A', 1);
+            CharacterPoints.Add('B', 4);
+            CharacterPoints.Add('C', 8);
+            CharacterPoints.Add('D', 1);
+            CharacterPoints.Add('E', 1);
+            CharacterPoints.Add('F', 3);
+            CharacterPoints.Add('G', 2);
+            CharacterPoints.Add('H', 2);
+            CharacterPoints.Add('I', 1);
+            CharacterPoints.Add('J', 7);
+            CharacterPoints.Add('K', 2);
+            CharacterPoints.Add('L', 1);
+            CharacterPoints.Add('M', 2);
+            CharacterPoints.Add('N', 1);
+            CharacterPoints.Add('O', 2);
+            CharacterPoints.Add('P', 4);
+            CharacterPoints.Add('Q', 10);
+            CharacterPoints.Add('R', 1);
+            CharacterPoints.Add('S', 1);
+            CharacterPoints.Add('T', 1);
+            CharacterPoints.Add('U', 4);
+            CharacterPoints.Add('V', 3);
+            CharacterPoints.Add('W', 10);
+            CharacterPoints.Add('X', 8);
+            CharacterPoints.Add('Y', 7);
+            CharacterPoints.Add('Z', 10);
+            CharacterPoints.Add('Å', 4);
+            CharacterPoints.Add('Ä', 3);
+            CharacterPoints.Add('Ö', 4);
         }
 
         public Game()
@@ -147,6 +183,13 @@ namespace BetaHangServer
             if (newClient.playerId.Trim() == string.Empty)
             {
                 var msg = new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Do you even username? brah!" };
+                newClient.Send(msg);
+                onMessageSent?.Invoke(msg, newClient);
+                return false;
+            }
+            if (newClient.playerId.Length >= maxNameLength)
+            {
+                var msg = new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Tl:dr, brah! (username too long)" };
                 newClient.Send(msg);
                 onMessageSent?.Invoke(msg, newClient);
                 return false;
