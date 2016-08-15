@@ -133,40 +133,40 @@
             // lblPlayerOneGuess
             // 
             this.lblPlayerOneGuess.AutoSize = true;
-            this.lblPlayerOneGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerOneGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerOneGuess.Location = new System.Drawing.Point(42, 290);
             this.lblPlayerOneGuess.Name = "lblPlayerOneGuess";
-            this.lblPlayerOneGuess.Size = new System.Drawing.Size(126, 24);
+            this.lblPlayerOneGuess.Size = new System.Drawing.Size(108, 20);
             this.lblPlayerOneGuess.TabIndex = 10;
             this.lblPlayerOneGuess.Text = "Player1Guess";
             // 
             // lblPlayerTwoGuess
             // 
             this.lblPlayerTwoGuess.AutoSize = true;
-            this.lblPlayerTwoGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerTwoGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerTwoGuess.Location = new System.Drawing.Point(156, 290);
             this.lblPlayerTwoGuess.Name = "lblPlayerTwoGuess";
-            this.lblPlayerTwoGuess.Size = new System.Drawing.Size(126, 24);
+            this.lblPlayerTwoGuess.Size = new System.Drawing.Size(108, 20);
             this.lblPlayerTwoGuess.TabIndex = 11;
             this.lblPlayerTwoGuess.Text = "Player2Guess";
             // 
             // lblPlayerThreeGuess
             // 
             this.lblPlayerThreeGuess.AutoSize = true;
-            this.lblPlayerThreeGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerThreeGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerThreeGuess.Location = new System.Drawing.Point(290, 290);
             this.lblPlayerThreeGuess.Name = "lblPlayerThreeGuess";
-            this.lblPlayerThreeGuess.Size = new System.Drawing.Size(126, 24);
+            this.lblPlayerThreeGuess.Size = new System.Drawing.Size(108, 20);
             this.lblPlayerThreeGuess.TabIndex = 12;
             this.lblPlayerThreeGuess.Text = "Player3Guess";
             // 
             // LblPlayerFourGuess
             // 
             this.LblPlayerFourGuess.AutoSize = true;
-            this.LblPlayerFourGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblPlayerFourGuess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblPlayerFourGuess.Location = new System.Drawing.Point(414, 290);
             this.LblPlayerFourGuess.Name = "LblPlayerFourGuess";
-            this.LblPlayerFourGuess.Size = new System.Drawing.Size(126, 24);
+            this.LblPlayerFourGuess.Size = new System.Drawing.Size(108, 20);
             this.LblPlayerFourGuess.TabIndex = 13;
             this.LblPlayerFourGuess.Text = "Player4Guess";
             // 
@@ -246,7 +246,7 @@
             this.PanelGameStart.Controls.Add(this.tBPassword);
             this.PanelGameStart.Controls.Add(this.tBUserName);
             this.PanelGameStart.Controls.Add(this.tBServerIP);
-            this.PanelGameStart.Location = new System.Drawing.Point(11, 13);
+            this.PanelGameStart.Location = new System.Drawing.Point(12, 12);
             this.PanelGameStart.Name = "PanelGameStart";
             this.PanelGameStart.Size = new System.Drawing.Size(524, 460);
             this.PanelGameStart.TabIndex = 20;
