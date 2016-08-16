@@ -82,7 +82,7 @@ namespace BetaHangServer
             {
                 lock (Clients)
                 {
-                    if (Clients.Count >= 1 && Clients.All(c => c.IsReady))
+                    if (Clients.Count >= 2 && Clients.All(c => c.IsReady))
                     {
                         waitingForClients = false;
                         InGame = true;
