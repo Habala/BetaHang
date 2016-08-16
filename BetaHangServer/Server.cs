@@ -28,7 +28,7 @@ namespace BetaHangServer
         internal event Action<BHangMessage, ClientHandler> onMessageSent;
         internal event Action<ClientHandler, BHangMessage> onMessageReceived;
         internal event Action<string> onHiddenWordChange;
-        
+
         public void RequestShutdown()
         {
             shutdown = true;
@@ -120,19 +120,21 @@ namespace BetaHangServer
         //}
         private void MessageHandler(ClientHandler sender, BHangMessage message)
         {
-            if (pendingGame == null ||
-                    pendingGame.InGame ||
-                    pendingGame.Clients.Count >= pendingGame.MaxPlayers)
-            {
-                if (pendingGame != null)
-                    runningGames.Add(pendingGame);
+            
+                if (pendingGame == null ||
+                        pendingGame.InGame ||
+                        pendingGame.Clients.Count >= pendingGame.MaxPlayers)
+                {
+                    if (pendingGame != null)
+                        runningGames.Add(pendingGame);
 
-                pendingGame = new Game();
-                pendingGame.onMessageReceived += MessageHandler;
-                pendingGame.onMessageSent += handleSentMessage;
-                pendingGame.onHiddenWordChange += handleHiddenWordChange;
-                //todo: handle sent messages and hidden word change
-            }
+                    pendingGame = new Game();
+                    pendingGame.onMessageReceived += MessageHandler;
+                    pendingGame.onMessageSent += handleSentMessage;
+                    pendingGame.onHiddenWordChange += handleHiddenWordChange;
+                    //todo: handle sent messages and hidden word change
+                }
+            
             //Todo: check all running games and remove any that have finished.
 
             try
@@ -159,7 +161,10 @@ namespace BetaHangServer
                     onMessageSent(msg, sender);
                 }
                 if (added)
+                {
                     ServerClients.Remove(sender);
+                    sender.onMessage -= MessageHandler;
+                }
                 if (!added)
                 {
                     var msg = new BHangMessage { Command = MessageCommand.ConnectionRefused, Value = "Game refused you, you inferior creature!" };
