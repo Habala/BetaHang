@@ -129,7 +129,7 @@ namespace BetaHangServer
                         runningGames.Add(pendingGame);
 
                     pendingGame = new Game();
-                    pendingGame.onMessageReceived += MessageHandler;
+                    pendingGame.onMessageReceived += handleMessageFromGame;
                     pendingGame.onMessageSent += handleSentMessage;
                     pendingGame.onHiddenWordChange += handleHiddenWordChange;
                     //todo: handle sent messages and hidden word change
@@ -189,6 +189,10 @@ namespace BetaHangServer
         private void handleSentMessage(BHangMessage message, ClientHandler receiver)
         {
             onMessageSent?.Invoke(message, receiver);
+        }
+        private void handleMessageFromGame(ClientHandler sender,BHangMessage message)
+        {
+            onMessageReceived?.Invoke(sender, message);
         }
     }
 }
